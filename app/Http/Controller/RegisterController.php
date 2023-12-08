@@ -41,11 +41,18 @@ class RegisterController extends \FastVolt\Core\Controller
 
             # insert data to db
             if ($insertData) {
+                
+                # display message and redirect to login
                 response()->redirect(route('login'), timer: 3000);
-                return '<div class="alert alert-success mb-4 fw-bold fs-5"><i class="fad fa-thumbs-up"></i> Registration Successful, You will be Redirected Soon..</div>';
+
+                return '<div class="alert alert-success mb-4 fw-bold fs-5">
+                            <i class="fad fa-thumbs-up"></i> Registration Successful, You will be Redirected Soon..
+                        </div>';
             }
 
-            return '<div class="alert alert-success mb-4 fw-bold fs-5"><i class="fas fa-exclamation-circle"></i> Something Went Wrong!</div>';
+            return '<div class="alert alert-success mb-4 fw-bold fs-5">
+                        <i class="fas fa-exclamation-circle"></i> Something Went Wrong!
+                    </div>';
         }
 
         return $this->render('register');

@@ -28,13 +28,32 @@ class LoginController extends \FastVolt\Core\Controller
                 ->where(['email' => $email, 'password' => $password])
                 ->num_rows() > 0;
 
-            if ($checkUser) {
+            # start login limiter
+            $this->limit_trial();
 
-                return 'User Exist!';
+            if (Session::has('login_trials_expiry') && Session::get('login_trials_expiry') > time()) {
+                # return message
+                return out('Please try again in next 2 minutes');
+            }
+
+            # check for validation errors
+            if (!$this->validate_login()->has_errors()) {
+
+                if (Session::store('fs_user', $email)) {
+
+                    # render message and redirect to dashboard 
+                    response()->redirect(route('dashboard'), timer: 3000);
+
+                    return '<div class="alert alert-success mb-4 fw-bold fs-5">
+                                <i class="fad fa-thumbs-up"></i> Login Successful, You will be Redirected Soon..
+                            </div>';
+                }
 
             } else {
-                
-                return 'User Does\'nt Exist';
+
+                return '<div class="alert alert-danger mb-4 fw-bold fs-5">
+                            <i class="fas fa-exclamation-circle"></i> ' . $this->validate_login()->errors() . '
+                        </div>';
             }
 
             // Session::store('fs_user', $form->email);
@@ -64,8 +83,6 @@ class LoginController extends \FastVolt\Core\Controller
         if (Session::get('trials') > 5 && !Session::has('login_trials_expiry')) {
             # set date to next 2 minutes
             Session::store('login_trials_expiry', strtotime('+2 minutes'));
-            # return message
-            return out('Please try again in next 2 minutes');
         }
 
         if (Session::has('login_trials_expiry') && Session::get('login_trials_expiry') < time()) {
