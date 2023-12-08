@@ -1,0 +1,21 @@
+<IfModule mod_rewrite.c>
+
+    <Files .env>
+        order allow,deny
+        Deny from all
+    </Files>
+    
+    
+RewriteEngine On
+RewriteCond %{REQUEST_URI}  !(\.png|\.jpg|\.webp|\.gif|\.jpeg|\.zip|\.css|\.svg|\.js|\.pdf)$
+
+# remove trailing slash
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} (.+)/$
+RewriteRule ^ %1 [L,R=301,NE]
+
+#redirect to public directory
+RewriteRule (.*)$ public/index.php [QSA,L]
+
+
+</IfModule>
