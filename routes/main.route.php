@@ -17,3 +17,6 @@ Route::mixed(['GET', 'POST'], '/login', 'LoginController@index', ['auth.control'
 Route::mixed(['GET', 'POST'], '/register', 'RegisterController@index', 'auth.control', name: 'register');
 
 Route::post('/register/validate-mail', 'RegisterController@validate_mail', '', name: 'register_validate_mail');
+
+# dashboard
+Route::get('/dashboard', 'HomeController@index', name: 'dashboard');
