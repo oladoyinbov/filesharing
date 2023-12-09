@@ -1,6 +1,19 @@
 {extends file="layouts/dashboard.tpl"}
 
 
+{* Custom Styles *}
+{block name='style'}
+   <style>
+    a {
+        text-decoration: none;
+    }
+
+    .sxa{
+        transition: all 2s ease-in;
+    }
+    </style>
+{/block}
+
 {*  Page Title  *}
 {block name='title'} Dashboard {/block}
 
@@ -8,18 +21,17 @@
 {*  Page Body  *}
 {block name='body'}
 
-<div class="px-4 py-1 pt-5 my-3 text-center" id="preloader">
-  <i class="fad fa-dragon fa-5x mb-4" style="color:#7A11F8"></i><br>
-  <h1 class="container display-5 fw-bold" id="typing-effect">File Sharing App</h1><sup></sup>
-  <div class="col-lg-6 mx-auto">
-    <p class="lead mb-4">Share files effortlessly online for free!</p>
-    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+<div hx-get="{route to='dashboard_stats'}"
+    hx-trigger='load'
+    hx-swap='#main'
+    hx-indicator='#preloader'
+></div>
+
+<div id='main'>
+    <div class="px-4 py-1 pt-5 my-3 text-center">
+        <p class='htmx-indicator' id='preloader'><i class='fa fa-spinner fa-spin'></i> Please Wait, Loading.....</p>
     </div>
-  </div>
 </div>
-
-
-{include file="components/dashboard-home.tpl"}
 
 
 {/block}

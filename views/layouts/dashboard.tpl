@@ -19,7 +19,7 @@
 
 {*  Header Block  *}
 {block name='header'}
-    {include file='components/dashboard-header.tpl'}
+    {include file='components/dashboard/header.tpl'}
 {/block}
 
 
