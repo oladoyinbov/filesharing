@@ -1,10 +1,10 @@
-{include 'core/layout/header.tpl' pagetitle='Dev Tool'}
+{include 'core/layout/header.tpl' pagetitle='DevTools'}
 
 <div class="px-4 py-5 my-5 text-center">
     <i class="fa fa-tools fa-duotone fa-5x mb-4" style="color:#7A11F8"></i><br>
-    <h1 class="container display-5 fw-bold" id="typing-effect">FastVolt</h1><sup>(php v{$phpversion})</sup>
+    <h1 class="container display-5 fw-bold" id="typing-effect">Fastvolt</h1><sup>(php v{$phpversion})</sup>
     <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4">Development section of FastVolt Framework</p>
+      <p class="lead mb-4">Development section of Fastvolt Framework</p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
         <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Explore</button>
         <button type="button" class="btn btn-outline-secondary btn-lg px-4">v{$appversion}</button>

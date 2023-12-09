@@ -6,14 +6,14 @@ namespace App\Http\Middleware;
 
 use FastVolt\Helper\Session;
 
-class AuthControl extends \FastVolt\Core\Middleware
+class HomeAuth extends \FastVolt\Core\Middleware
 {
     public function implement(\FastVolt\Core\Http\HttpRequest $request)
     {
         if (Session::has('fs_user')) {
 
-            # render csrf error message
             exit(response()->redirect(route('dashboard')));
+
         }
     }
 }

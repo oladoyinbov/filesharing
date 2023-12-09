@@ -21,8 +21,5 @@ class Users extends \FastVolt\Core\Model
      * @var string
      */
     protected $primaryKey = 'id'; 
-    
-
-
- 
-    }
+     
+}

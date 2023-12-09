@@ -17,6 +17,12 @@
 </head>
 <body>
 
+{*  Header Block  *}
+{block name='header'}
+    {include file='components/dashboard-header.tpl'}
+{/block}
+
+
 {block name='body'}No Content Here..{/block}
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

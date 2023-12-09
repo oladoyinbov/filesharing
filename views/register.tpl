@@ -1,5 +1,11 @@
 {extends file="layouts/auth.tpl"}
 
+
+{*  Page Title  *}
+{block name='title'} Register {/block}
+
+
+{*  Page Body  *}
 {block name='body'}
 
 <div class="px-4 py-1 pt-5 my-3 text-center">

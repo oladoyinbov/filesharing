@@ -1,13 +1,3 @@
-{extends file="layouts/dashboard.tpl"}
-
-
-{*  Page Title  *}
-{block name='title'} Dashboard {/block}
-
-
-{*  Page Body  *}
-{block name='body'}
-
 <div class="px-4 py-1 pt-5 my-3 text-center">
   <i class="fad fa-dragon fa-5x mb-4" style="color:#7A11F8"></i><br>
   <h1 class="container display-5 fw-bold" id="typing-effect">File Sharing App</h1><sup></sup>
@@ -17,6 +7,3 @@
     </div>
   </div>
 </div>
-
-
-{/block}

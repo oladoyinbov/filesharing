@@ -29,34 +29,26 @@ class LoginController extends \FastVolt\Core\Controller
                 ->num_rows() > 0;
 
             # start login limiter
-            $this->limit_trial();
+            $this->limit_login_trial();
 
             if (Session::has('login_trials_expiry') && Session::get('login_trials_expiry') > time()) {
-                # return message
-                return out('Please try again in next 2 minutes');
+                # return err
+                return $this->result(false, 'Please try again in next 2 minutes');
             }
 
             # check for validation errors
-            if (!$this->validate_login()->has_errors()) {
-
-                if (Session::store('fs_user', $email)) {
-
-                    # render message and redirect to dashboard 
-                    response()->redirect(route('dashboard'), timer: 3000);
-
-                    return '<div class="alert alert-success mb-4 fw-bold fs-5">
-                                <i class="fad fa-thumbs-up"></i> Login Successful, You will be Redirected Soon..
-                            </div>';
-                }
-
-            } else {
-
-                return '<div class="alert alert-danger mb-4 fw-bold fs-5">
-                            <i class="fas fa-exclamation-circle"></i> ' . $this->validate_login()->errors() . '
-                        </div>';
+            if ($this->validate_login()->has_errors()) {
+                # return err
+                return $this->result(false, $this->validate_login()->errors());
             }
 
-            // Session::store('fs_user', $form->email);
+            if ($checkUser && Session::store('fs_user', $email)) {
+                # render message and redirect to dashboard 
+                response()->redirect(route('dashboard'), timer: 3000);
+                return $this->result(true, 'Login Successful, You will be Redirected Soon..');
+            }
+
+            return $this->result(false, 'Invalid Login Credentials');
         }
 
         return $this->render('login');
@@ -77,19 +69,51 @@ class LoginController extends \FastVolt\Core\Controller
     }
 
 
-    private function limit_trial(): ?string
+    private function limit_login_trial()
     {
+        # record login trials
+        if (!Session::has('login_trials_expiry')) {
+
+            if (!Session::has('trials')) {
+                Session::store('trials', 1); // start recording trials
+            } else { 
+                $trials = Session::get('trials') ?? 1;
+                Session::store('trials', $trials + 1); // increment no of trials
+            }
+        }
+
         # set limits for login
-        if (Session::get('trials') > 5 && !Session::has('login_trials_expiry')) {
+        if (
+            Session::has('trials') &&
+            Session::get('trials') > 5 &&
+            !Session::has('login_trials_expiry')
+        ) {
             # set date to next 2 minutes
-            Session::store('login_trials_expiry', strtotime('+2 minutes'));
+            Session::store('login_trials_expiry', strtotime('+2 minutes')); // add timer
         }
 
         if (Session::has('login_trials_expiry') && Session::get('login_trials_expiry') < time()) {
             # unset session
-            Session::get('trials');
-            Session::unset('login_trials_expiry');
+            Session::unset('trials');
+            Session::unset('login_trials_expiry'); // remove trial limit
         }
+    }
+
+    /**
+     * Return Operation Result in HTML
+     */
+    private function result(bool $status, string $msg): string
+    {
+        return match ($status) {
+
+            true => '<div class="alert alert-success mb-4 fw-bold fs-5">
+                        <i class="fad fa-thumbs-up"></i> ' . $msg . '
+                    </div>',
+
+            false => '<div class="alert alert-danger mb-4 fw-bold fs-5">
+                            <i class="fas fa-exclamation-circle"> ' . $msg . '</i> 
+                    </div>'
+        };
     }
 
 }

@@ -15,7 +15,8 @@ class Middlewares
     public static array $aliases = [
 
         "verify.csrf" => \App\Http\Middleware\VerifyCsrfToken::class,
-        "auth.control" => \App\Http\Middleware\AuthControl::class
+        "home.auth" => \App\Http\Middleware\HomeAuth::class,
+        "dash.auth" => \App\Http\Middleware\DashboardAuth::class
 
     ];
 }
