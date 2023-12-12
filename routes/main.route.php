@@ -9,6 +9,9 @@ use FastVolt\Router\Route;
 */
 
 Route::get('/', 'HomeController@index', name: 'home');
+Route::get('/test', function() {
+    return date('d-m-y');
+});
 
 # Login Auth
 Route::mixed(['GET', 'POST'], '/login', 'LoginController@index', ['home.auth', 'verify.csrf'], name: 'login');
@@ -22,4 +25,4 @@ Route::group('/user', 'dash.auth')
     ->get('/dashboard', 'DashboardController@index', name: 'dashboard')
     ->get('/dashboard/stats', 'DashboardController@stats', name: 'dashboard_stats')
     ->mixed(['GET', 'POST'], '/myfiles', 'FilesController@myfiles', name: 'dash_myfiles')
-    ->mixed(['GET', 'POST'], '/upload', 'FilesController@uploadFiles', name: 'dash_upload_files');
+    ->mixed(['GET', 'POST'], '/upload', 'FilesController@uploadFilesInterface', name: 'dash_upload_files');
