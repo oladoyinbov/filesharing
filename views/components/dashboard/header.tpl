@@ -33,12 +33,12 @@
     <div class="px-3 py-2 border-bottom mb-3">
       <div class="container d-flex flex-wrap justify-content-center">
         <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
-          <input type="search" class="form-control" placeholder="Search Users..." aria-label="Search">
+          <input type="search" class="form-control" placeholder="Search Files..." aria-label="Search">
         </form>
 
         <div class="text-end">
           <a href="{route to='dash_account'}" class="btn btn-dark text-light me-2"><i class="fad fa-user-circle"></i> Account</a>
-          <a href="{route to='dashb_upload_file'}" class="btn btn-dark"><i class="fad fa-file-upload"></i> Upload File</a>
+          <a href="{route to='dash_upload_files'}" class="btn btn-dark"><i class="fad fa-file-upload"></i> Upload File</a>
         </div>
       </div>
     </div>

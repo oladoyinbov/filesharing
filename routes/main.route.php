@@ -18,5 +18,8 @@ Route::mixed(['GET', 'POST'], '/register', 'RegisterController@index', 'home.aut
 Route::post('/register/validate-mail', 'RegisterController@validate_mail', 'home.auth', name: 'register_validate_mail');
 
 # dashboard
-Route::get('/dashboard', 'DashboardController@index', 'dash.auth', name: 'dashboard');
-Route::get('/dashboard/stats', 'DashboardController@stats', 'dash.auth', name: 'dashboard_stats');
+Route::group('/user', 'dash.auth')
+    ->get('/dashboard', 'DashboardController@index', name: 'dashboard')
+    ->get('/dashboard/stats', 'DashboardController@stats', name: 'dashboard_stats')
+    ->mixed(['GET', 'POST'], '/myfiles', 'FilesController@myfiles', name: 'dash_myfiles')
+    ->mixed(['GET', 'POST'], '/upload', 'FilesController@uploadFiles', name: 'dash_upload_files');
