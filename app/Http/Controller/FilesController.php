@@ -67,7 +67,7 @@ class FilesController extends \FastVolt\Core\Controller
             $date = date('d-m-y');
             $file_name = $file->getUniqueFileName();
             $file_size = $file->getSize();
-            $upload_path = "uploads/user_files/{$date}/";
+            $upload_path = "uploads/user_files/{$date}";
             $upload_dir = resources_path($upload_path);
 
             # insert file info to db
