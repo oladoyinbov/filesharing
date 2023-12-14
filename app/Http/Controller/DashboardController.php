@@ -21,7 +21,8 @@ class DashboardController extends \FastVolt\Core\Controller
     public function stats(): string
     {
         sleep(2);
-        return '<div class="container mb-4">
+        return '
+        <div class="container mb-4">
         <div class="row">
           
           <div class="col-lg-4 col-md-6" style="margin-top: 20px">

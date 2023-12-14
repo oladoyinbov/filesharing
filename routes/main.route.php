@@ -10,7 +10,8 @@ use FastVolt\Router\Route;
 
 Route::get('/', 'HomeController@index', name: 'home');
 Route::get('/test', function() {
-    return date('d-m-y');
+   $user = preg_replace('/\@(\w+).(\w+)/', '', 'user.game@outlook.com');
+   return $id = substr(bin2hex(\FastVolt\Helper\Session::get('fs_user')), 0, 10);
 });
 
 # Login Auth
@@ -24,5 +25,7 @@ Route::post('/register/validate-mail', 'RegisterController@validate_mail', 'home
 Route::group('/user', 'dash.auth')
     ->get('/dashboard', 'DashboardController@index', name: 'dashboard')
     ->get('/dashboard/stats', 'DashboardController@stats', name: 'dashboard_stats')
-    ->mixed(['GET', 'POST'], '/myfiles', 'FilesController@myfiles', name: 'dash_myfiles')
-    ->mixed(['GET', 'POST'], '/upload', 'FilesController@uploadFilesInterface', name: 'dash_upload_files');
+    ->mixed(['GET', 'POST'], '/myfiles', 'MyFilesController@index', name: 'dash_myfiles')
+    ->get('/myfiles/fopt', 'MyFilesController@loadOptions', name: 'dash_myfiles_load_opt')
+    ->post('/myfiles/opt/rename', 'MyFilesController@renameFile', name: 'dash_update_file_name')
+    ->mixed(['GET', 'POST'], '/upload', 'FileUploadController@uploadFilesInterface', name: 'dash_upload_files');

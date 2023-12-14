@@ -14,8 +14,19 @@
     </style>
 {/block}
 
+
 {*  Page Title  *}
 {block name='title'} Dashboard {/block}
+
+
+{* Unused Section *}
+{block name='panel-1'}{/block}
+
+
+{* Header Panel *}
+{block name='panel-2'}
+  <a href="{route to='dash_upload_files'}" class="btn btn-dark float-right"><i class="fad fa-user-circle"></i> My Profile</a>
+{/block}
 
 
 {*  Page Body  *}

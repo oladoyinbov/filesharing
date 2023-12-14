@@ -11,7 +11,7 @@ class LoginController extends \FastVolt\Core\Controller
 {
 
     /**
-     * Hello World Function
+     * My Files Function
      *
      * @return 
      */

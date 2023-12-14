@@ -4,17 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controller;
 
-use App\Model\Files;
+use App\Model\{Users, Files};
 use FastVolt\Helper\{UUID, Session, FileSystem};
 
-class FilesController extends \FastVolt\Core\Controller
+class FileUploadController extends \FastVolt\Core\Controller
 {
     private FileSystem $f;
-
-    public function myfiles()
-    {
-        return $this->render('myfiles');
-    }
 
 
     public function uploadFilesInterface()
@@ -45,7 +40,7 @@ class FilesController extends \FastVolt\Core\Controller
 
                 response()->redirect(route('dash_upload_files'), timer: 3000);
 
-                return implode('<br>', $msg). $this->backToHomeButton();
+                return implode('<br>', $msg) . $this->backToHomeButton();
 
             } else {
 
@@ -56,12 +51,12 @@ class FilesController extends \FastVolt\Core\Controller
 
                 # handle single file uploads
                 if ($this->uploadToDisk($files)) {
-                    return $this->result(true, $files->getUniqueFileName() . ' Uploaded Successfully') . $this->backToHomeButton();
+                    return $this->result(true, $files->getName() . ' Uploaded Successfully') . $this->backToHomeButton();
                 }
             }
 
             # return err
-            $this->result(false, 'Something Went Wrong!'). $this->backToHomeButton();
+            $this->result(false, 'Something Went Wrong!') . $this->backToHomeButton();
         }
 
         return $this->render('upload_files');
@@ -76,10 +71,13 @@ class FilesController extends \FastVolt\Core\Controller
     private function uploadToDisk(FileSystem $file)
     {
         if ($file->exists()) {
+
+            $id = substr(bin2hex(Session::get('fs_user')), 0, 10);
+            $user = preg_replace('/\@(\w+).(\w+)/', '', Session::get('fs_user')) . '_' . $id;
             $date = date('d-m-y');
-            $file_name = $file->getUniqueFileName();
+            $file_name = strip_tags($file->getName());
             $file_size = $file->getSize();
-            $upload_path = "uploads/user_files/{$date}";
+            $upload_path = "uploads/{$user}/user_files/{$date}";
             $upload_dir = resources_path($upload_path);
 
             # save file to directory
@@ -126,7 +124,7 @@ class FilesController extends \FastVolt\Core\Controller
                 $file->is_archive_file()
             )
         ) {
-            return $this->result(false,sprintf('Only images, video, documents and archive files are allowed!'));
+            return $this->result(false, sprintf('Only images, video, documents and archive files are allowed!'));
         }
 
         return null;
