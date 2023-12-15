@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controller;
 
 use App\Model\{Users, Files};
-use FastVolt\Helper\Session;
+use FastVolt\Helper\{Session, Image};
 
 class MyFilesController extends \FastVolt\Core\Controller
 {
@@ -93,8 +93,10 @@ class MyFilesController extends \FastVolt\Core\Controller
 
                 $file_dir = resources_path($db['path'] . '/' .$db['name'], true);
                 $file_name = escape($db['name'], true);
-                $file_size = $db['size'];
+                $file_size = Image::formatSize($db['size']);
                 $file_uuid = $db['uuid'];
+                $file_type = basename($file_name) ?? 'binary';
+                $file_meme_type = mime_content_type(resources_path($db['path'] . '/' .$db['name']));
 
                 return '
                 <div class="d-flex justify-content-between flex-nowrap mb-2">
@@ -124,6 +126,8 @@ class MyFilesController extends \FastVolt\Core\Controller
                                 </a>
                             </li>
                             <li class="list-group-item"><strong class="fw-bold">File Size:</strong> '.$file_size.'</li>
+                            <li class="list-group-item"><strong class="fw-bold">File Type:</strong> '.$file_type.'</strong> </li>
+                            <li class="list-group-item"><strong class="fw-bold">File Meme:</strong> '.$file_meme_type.'</strong> </li>
                             <li class="list-group-item"><strong class="fw-bold">File Description:</strong> </li>
                          </ul>
                       </div>
