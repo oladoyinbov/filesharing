@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controller;
 
+use App\Enums\File;
 use App\Model\{Users, Files};
 use FastVolt\Helper\{UUID, Session, FileSystem};
 
@@ -74,11 +75,12 @@ class FileUploadController extends \FastVolt\Core\Controller
 
             $id = substr(bin2hex(Session::get('fs_user')), 0, 10);
             $user = preg_replace('/\@(\w+).(\w+)/', '', Session::get('fs_user')) . '_' . $id;
-            $date = date('d-m-y');
+            [$year, $month] = [date('Y'), date('m')];
             $file_name = strip_tags($file->getName());
             $file_size = $file->getSize();
-            $upload_path = "uploads/{$user}/user_files/{$date}";
+            $upload_path = "uploads/u/{$user}/{$year}/{$month}";
             $upload_dir = resources_path($upload_path);
+            $file_type = $this->getFileType($file);
 
             # save file to directory
             if ($file->save($upload_dir, $file_name)) {
@@ -89,8 +91,11 @@ class FileUploadController extends \FastVolt\Core\Controller
                     'uuid' => UUID::generate(),
                     'user' => Session::get('fs_user'),
                     'name' => $file_name,
+                    'type' => $file_type,
+                    'description' => '',
                     'size' => $file_size,
                     'path' => $upload_path,
+                    'last_modified' => get_timestamp(),
                     'created_at' => get_timestamp()
                 ]);
             }
@@ -130,6 +135,31 @@ class FileUploadController extends \FastVolt\Core\Controller
         return null;
     }
 
+
+    private function getFileType(FileSystem $file)
+    {
+        if ($file->is_image_file()) {
+            return File::IMAGE->get();
+        } 
+
+        if ($file->is_audio_file()) {
+            return File::AUDIO->get();
+        }
+
+        if ($file->is_video_file()) {
+            return File::VIDEO->get();
+        }
+
+        if ($file->is_archive_file()) {
+            return File::ARCHIVE->get();
+        }
+
+        if ($file->is_document_file()) {
+            return File::DOCUMENT->get();
+        }
+
+        return 'file';
+    }
 
 
     /**

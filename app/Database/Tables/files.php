@@ -23,8 +23,11 @@ class files
             $schema->varCharField('uuid');
             $schema->varCharField('user');
             $schema->varCharField('name');
+            $schema->varCharField('type');
+            $schema->varCharField('description');
             $schema->varCharField('size');
             $schema->varCharField('path');
+            $schema->timeStamp('last_modified');
             $schema->timeStamp();
 
         });

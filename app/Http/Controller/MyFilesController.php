@@ -34,18 +34,13 @@ class MyFilesController extends \FastVolt\Core\Controller
         <li><h6 class="dropdown-header">Choose Options</h6></li>
         <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" 
-                href="#"
-                hx-get="'.route('dash_myfiles_preview_file', ['id' => request()->get('filexl'), 'mode' => 'preview']).'"
-                hx-trigger="click"
-                hx-target="#displayprevfile"
-                hx-swap="innerHTML"
                 type="button" 
                 data-bs-toggle="modal" 
-                data-bs-target="#previewFile"
+                data-bs-target="#previewFile-'.request()->get('filexl').'"
             ><i class="fad fa-eye"></i> Preview </a>
         </li>
         <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#editFileName"><i class="fad fa-edit"></i> Rename</a></li>
+        <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#editFileName-'.request()->get('filexl').'"><i class="fad fa-edit"></i> Rename</a></li>
         <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" href="#"><i class="fad fa-key"></i> Secure File</a></li>
         <li><hr class="dropdown-divider"></li>
@@ -86,7 +81,8 @@ class MyFilesController extends \FastVolt\Core\Controller
 
     public function previewFile(string $uuid)
     {
-        if (request()->hasQuery('mode') == 'preview' && is_uuid($uuid) && Session::get('fs_user')) {
+        if (is_uuid($uuid) && Session::get('fs_user')) {
+
             $db = (new Files)
                 ->where([
                     'user' => Session::get('fs_user'),
@@ -95,11 +91,19 @@ class MyFilesController extends \FastVolt\Core\Controller
 
             if ($db) {
 
-                $file_dir = resources_path($db['path'] . '/' .$db['file'], true);
+                $file_dir = resources_path($db['path'] . '/' .$db['name'], true);
                 $file_name = escape($db['name'], true);
                 $file_size = $db['size'];
+                $file_uuid = $db['uuid'];
 
-                return '<h3 class="mb-3">Preview File</h3>
+                return '
+                <div class="d-flex justify-content-between flex-nowrap mb-2">
+                    <span class="w-75"><h4 class="mb-3">Preview File</h4></span>
+                    <span class="d-flex w-25 flex-nowrap gap-2">
+                        <button type="button" class="w-50 btn btn-danger btn-sm" data-bs-dismiss="modal"><i class="fad fa-file-download"></i></button>
+                        <button type="button" class="w-50 btn btn-warning btn-sm" data-bs-dismiss="modal"><i class="fad fa-times-circle" style="color:white;"></i></button>
+                    </span>
+                </div>
                 <div class="d-flex justify-content-between w-100 flex-wrap flex-sm-wrap flex-lg-nowrap gap-1 flex-xl-nowrap flex-xxl-nowrap flex-md-nowrap">
   
                   <div class="w-100">
@@ -109,29 +113,26 @@ class MyFilesController extends \FastVolt\Core\Controller
                   <div class="w-100">
                     <div class="mx-3">
                       <div class="modal-header border-bottom-0">
-                        <h1 class="fw-bold fs-2">File Info</h1>
+                        <span class=""><h1 class="fw-bold fs-2">File Info</h1></span>
                       </div>
   
                       <div class="">
-                         <ul>
-                            <li>File Name: '.$file_name.'</li>
-                            <li>File Size: '.$file_size.'</li>
-                            <li>File Description: My uploaded file here</li>
+                         <ul class="list-group fs-5">
+                            <li class="list-group-item"><strong class="fw-bold">File Name:</strong> '.$file_name.' 
+                                <a>
+                                    <i class="fad fa-pen-square" type="button" data-bs-toggle="modal" data-bs-target="#editFileName-'.$file_uuid.'"></i>
+                                </a>
+                            </li>
+                            <li class="list-group-item"><strong class="fw-bold">File Size:</strong> '.$file_size.'</li>
+                            <li class="list-group-item"><strong class="fw-bold">File Description:</strong> </li>
                          </ul>
                       </div>
                     </div>
                   </div>
                 </div>
   
-                <div class="w-100 d-flex flex-wrap">
-                  <span class="w-50"></span>
-                  <span class="w-50 d-flex flex-nowrap gap-2">
-                      <button type="button" class="w-50 btn btn-primary" data-bs-dismiss="modal">Download</button>
-                      <button type="button" class="w-50 btn btn-primary" data-bs-dismiss="modal">Close</button>
-                  </span>
-                </div>
-  ';
-            }
+               ';
+            } 
         }
     }
 

@@ -113,11 +113,11 @@
                 <a class="" type="button" data-bs-toggle="dropdown" aria-expanded="false" 
                   hx-get="{route to='dash_myfiles_load_opt' params=['filexl'=> $file.uuid]}"
                   hx-trigger='click once'
-                  hx-target='#fileopts'
+                  hx-target='#fileopts-{$file.uuid}'
                 > <i class="fad fa-ellipsis-v fs-5"></i>
                 </a>
                 <ul class="dropdown-menu">
-                  <div id="fileopts"></div>
+                  <div id="fileopts-{$file.uuid}"></div>
                 </ul>
               </div>
               </a>
@@ -126,7 +126,7 @@
       </div>
 
       {* Rename Popup *}
-      <div class="modal fade" id="editFileName" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      <div class="modal fade" id="editFileName-{$file.uuid}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLiveLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content rounded-4 shadow">
@@ -158,11 +158,14 @@
       </div>
 
       {* Preview Popup *}
-      <div class="modal fade" id="previewFile" tabindex="-1" aria-labelledby="exampleModalFullscreenLabel" aria-hidden="true">
+      <div class="modal fade" id="previewFile-{$file.uuid}" tabindex="-1" aria-labelledby="exampleModalFullscreenLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
-            <div class="modal-body" id="#displayprevfile">
-              
+            <div class="modal-body" id="#displayprevfile-{$file.uuid}">
+              <div hx-get="{route to='dash_myfiles_preview_file' params=['id' => {$file.uuid}]}"
+                hx-trigger='revealed'
+                hx-swap="innerHTML">
+              </div>
             </div>
           </div>
         </div>
