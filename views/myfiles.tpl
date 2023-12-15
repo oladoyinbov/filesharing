@@ -136,21 +136,33 @@
 
             <div class="modal-body p-5 pt-0">
               <form hx-post="{route to='dash_update_file_name'}" hx-target='#msg-{$file.id}' hx-trigger='submit'>
+                {csrf_token}
                 <div id='msg-{$file.id}' hx-swap='innerHTML'></div>
+
+                <input type='hidden' name='file_id' value='{$file.uuid}'>
+
                 <div class="form-floating mb-3">
-                  <input type="filename" class="form-control rounded-3" id="floatingInput" value="{$file.name}">
+                  <input type="text" name="filename" class="form-control rounded-3" id="floatingInput" value="{$file.name}">
                   <label for="floatingInput">File Name</label>
                 </div>
 
                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">
                   Update 
                 </button>
-                <button type="button" class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" data-bs-dismiss="modal"
+                <button type="close" class="w-100 mb-2 btn btn-lg rounded-3 btn-secondary" data-bs-dismiss="modal"
                   aria-label="Close">Cancel</button>
               </form>
             </div>
           </div>
         </div>
+      </div>
+
+      {* *}
+      <div class="modal fade" 
+          id="previewFile" data-bs-backdrop="static" 
+          data-bs-keyboard="false" tabindex="-1"
+          aria-labelledby="staticBackdropLiveLabel" aria-hidden="true">
+        <h3>Hello world</h3>
       </div>
       {/foreach}
 
