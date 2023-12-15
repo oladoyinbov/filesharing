@@ -106,8 +106,8 @@
       <div class="col-lg-5 col-md-5 col-sm-12 border border-dark p-3 position-relative">
         <div class="d-flex gap-2 justify-centent-around">
           <div class="d-flex-10" style=""><i class="fad fa-music"></i></div>
-          <div class="d-flex-50 overflow-y-hidden" style="width:100%;overflow:hidden;">{$file.name}</div>
-          <div class="d-flex-40 position-relative" style="width:10%;">
+          <div class="d-flex-50 overflow-y-hidden w-100" style="overflow:hidden;">{$file.name}</div>
+          <div class="d-flex-40 position-relative w-10">
             <span class="position-absolute top-50 start-100 translate-middle">
               <div class="dropend">
                 <a class="" type="button" data-bs-toggle="dropdown" aria-expanded="false" 
@@ -157,14 +157,38 @@
         </div>
       </div>
 
-      {* *}
-      <div class="modal fade" 
-          id="previewFile" data-bs-backdrop="static" 
-          data-bs-keyboard="false" tabindex="-1"
-          aria-labelledby="staticBackdropLiveLabel" aria-hidden="true">
-        <h3>Hello world</h3>
+      {* Preview Popup *}
+      <div class="modal fade" id="previewFile" tabindex="-1" aria-labelledby="exampleModalFullscreenLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-body">
+              <h3 class="mb-3">Preview File</h3>
+              <div class="d-flex justify-content-between w-100 flex-wrap flex-sm-wrap flex-lg-nowrap gap-2 flex-xl-nowrap flex-xxl-nowrap flex-md-nowrap">
+
+                <div class="w-50"><div class="bg-dark"> Hello 1</div></div>
+                <div class="w-50">
+                  <div class="mx-3">
+                    <div class="modal-header border-bottom-0">
+                      <h1 class="fw-bold fs-2">File Info</h1>
+                    </div>
+
+                    <div class="ml-2">
+                       <ul>
+                          <li>File Name: FB_JSKSKS.jpg</li>
+                          <li>File Size: FB_JSKSKS.jpg</li>
+                          <li>File Description: FB_JSKSKS.jpg</li>
+                       </ul>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <button type="button" class="container btn btn-block" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
       </div>
-      {/foreach}
+    {/foreach}
 
 
     </div>

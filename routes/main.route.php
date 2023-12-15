@@ -26,10 +26,10 @@ Route::post('/register/validate-mail', 'RegisterController@validate_mail', 'home
 
 # dashboard
 Route::group('/user', 'dash.auth')
-    ->get('/dashboard', 'DashboardController@index', name: 'dashboard')
-    ->get('/dashboard/stats', 'DashboardController@stats', name: 'dashboard_stats')
-    ->mixed(['GET', 'POST'], '/myfiles', 'MyFilesController@index', name: 'dash_myfiles')
-    ->get('/myfiles/fopt', 'MyFilesController@loadOptions', name: 'dash_myfiles_load_opt')
-    ->post('/myfiles/opt/rename', 'MyFilesController@renameFile', 'verify.csrf' , name: 'dash_update_file_name')
-    ->get('/myfiles/opt/preview/{id}', 'MyFilesController@previewFile', name: 'dash_myfiles_preview_file')
-    ->mixed(['GET', 'POST'], '/upload', 'FileUploadController@uploadFilesInterface', name: 'dash_upload_files');
+    -> get('/dashboard', 'DashboardController@index', name: 'dashboard')
+    -> get('/dashboard/stats', 'DashboardController@stats', name: 'dashboard_stats')
+    -> mixed(['GET', 'POST'], '/myfiles', 'MyFilesController@index', name: 'dash_myfiles')
+    -> get('/myfiles/fopt', 'MyFilesController@loadOptions', name: 'dash_myfiles_load_opt')
+    -> post('/myfiles/opt/rename', 'MyFilesController@renameFile', 'verify.csrf' , name: 'dash_update_file_name')
+    -> get('/myfiles/opt/preview/{id}', 'MyFilesController@previewFile', name: 'dash_myfiles_preview_file')
+    -> mixed(['GET', 'POST'], '/upload', 'FileUploadController@uploadFilesInterface', name: 'dash_upload_files');
