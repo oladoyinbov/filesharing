@@ -111,10 +111,10 @@
             <span class="position-absolute top-50 start-100 translate-middle">
               <div class="dropend">
                 <a class="" type="button" data-bs-toggle="dropdown" aria-expanded="false" 
-                hx-get="{route to='dash_myfiles_load_opt' params=['filexl'=> $file.uuid]}"
+                  hx-get="{route to='dash_myfiles_load_opt' params=['filexl'=> $file.uuid]}"
                   hx-trigger='click once'
                   hx-target='#fileopts'
-                  > <i class="fad fa-ellipsis-v fs-5"></i>
+                > <i class="fad fa-ellipsis-v fs-5"></i>
                 </a>
                 <ul class="dropdown-menu">
                   <div id="fileopts"></div>
@@ -149,7 +149,7 @@
                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">
                   Update 
                 </button>
-                <button type="close" class="w-100 mb-2 btn btn-lg rounded-3 btn-secondary" data-bs-dismiss="modal"
+                <button type="button" class="w-100 mb-2 btn btn-lg rounded-3 btn-secondary" data-bs-dismiss="modal"
                   aria-label="Close">Cancel</button>
               </form>
             </div>
@@ -161,29 +161,8 @@
       <div class="modal fade" id="previewFile" tabindex="-1" aria-labelledby="exampleModalFullscreenLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
-            <div class="modal-body">
-              <h3 class="mb-3">Preview File</h3>
-              <div class="d-flex justify-content-between w-100 flex-wrap flex-sm-wrap flex-lg-nowrap gap-2 flex-xl-nowrap flex-xxl-nowrap flex-md-nowrap">
-
-                <div class="w-50"><div class="bg-dark"> Hello 1</div></div>
-                <div class="w-50">
-                  <div class="mx-3">
-                    <div class="modal-header border-bottom-0">
-                      <h1 class="fw-bold fs-2">File Info</h1>
-                    </div>
-
-                    <div class="ml-2">
-                       <ul>
-                          <li>File Name: FB_JSKSKS.jpg</li>
-                          <li>File Size: FB_JSKSKS.jpg</li>
-                          <li>File Description: FB_JSKSKS.jpg</li>
-                       </ul>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-              <button type="button" class="container btn btn-block" data-bs-dismiss="modal">Close</button>
+            <div class="modal-body" id="#displayprevfile">
+              
             </div>
           </div>
         </div>
