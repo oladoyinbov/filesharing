@@ -121,8 +121,6 @@ class DashboardController extends \FastVolt\Core\Controller
     {
         return (new Files)
             ->where(['user' => Session::get('fs_user')])
-            ->num_rows();
+            ->num_rows() ?? 0;
     }
-
-
 }

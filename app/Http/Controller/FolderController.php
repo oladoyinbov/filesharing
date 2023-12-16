@@ -94,7 +94,6 @@ class FolderController extends \FastVolt\Core\Controller
     }
 
 
-
     public function listAllFolders()
     {
         $all_folders = [];
@@ -129,5 +128,4 @@ class FolderController extends \FastVolt\Core\Controller
             return implode("\n\r", $all_folders);
         }
     }
-
 }

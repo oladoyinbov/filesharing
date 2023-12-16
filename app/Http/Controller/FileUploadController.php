@@ -12,7 +12,6 @@ class FileUploadController extends \FastVolt\Core\Controller
 {
     private FileSystem $f;
 
-
     public function uploadFilesInterface()
     {
         if (request()->is_post_request()) {

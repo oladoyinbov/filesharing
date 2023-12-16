@@ -121,7 +121,7 @@ class MyFilesController extends \FastVolt\Core\Controller
                         <span class=""><h1 class="fw-bold fs-2">File Info</h1></span>
                       </div>
   
-                      <div class="">
+                      <div class="w-100">
                          <ul class="list-group fs-5">
                             <li class="list-group-item"><strong class="fw-bold">File Name:</strong> ' . $file_name . ' 
                                 <a>
@@ -130,7 +130,7 @@ class MyFilesController extends \FastVolt\Core\Controller
                             </li>
                             <li class="list-group-item"><strong class="fw-bold">File Size:</strong> ' . $file_size . '</li>
                             <li class="list-group-item"><strong class="fw-bold">File Type:</strong> ' . $file_type . '</strong> </li>
-                            <li class="list-group-item"><strong class="fw-bold">File Meme:</strong> ' . $file_meme_type . '</strong> </li>
+                            <li class="list-group-item"><strong class="fw-bold">Meme Type:</strong> ' . $file_meme_type . '</strong> </li>
                             <li class="list-group-item"><strong class="fw-bold">File Description:</strong> </li>
                          </ul>
                       </div>
