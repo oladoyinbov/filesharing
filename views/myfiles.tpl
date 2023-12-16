@@ -148,8 +148,8 @@
       </div>
     </div>
 
-    <div hx-get="{route to='dash_create_folder' params=['show' => 'form']}"
-      hx-trigger="click"
+    <div hx-get="{route to='dash_list_all_folders'}"
+      hx-trigger="load"
       hx-swap="outerHTML"
     ></div>
 

@@ -147,7 +147,7 @@ class MyFilesController extends \FastVolt\Core\Controller
     private function renderFileDemo($file_dir, $type, $mime = '')
     {
         return match ($type) {
-            'image' => '<img src=' . $file_dir . ' class="img-fluid rounded" width="100%" height="100%">',
+            'image' => '<img src="' . $file_dir . '" class="img-fluid rounded" width="100%" height="100%">',
             'video' => '<video width="320" height="400" class="object-fit-cover" controls>
                           <source src="'.$file_dir.'" type="'.$mime.'">
                           Your browser does not support the video tag.

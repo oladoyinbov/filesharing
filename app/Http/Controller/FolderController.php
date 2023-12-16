@@ -9,7 +9,7 @@ use FastVolt\Helper\{Session, CsrfToken, UUID};
 
 class FolderController extends \FastVolt\Core\Controller
 {
-    public function createNew()
+    public function init()
     {
         if (request()->is_post_request()) {
 
@@ -37,6 +37,7 @@ class FolderController extends \FastVolt\Core\Controller
 
         }
 
+        # shaow folder create form
         if (request()->is_get_request() && request()->hasQuery(['show']) == 'form') {
             $csrf_form = CsrfToken::csrf_token_input_form();
             return ' 
@@ -65,13 +66,14 @@ class FolderController extends \FastVolt\Core\Controller
                   </div>
                 </div>';
         }
+
     }
 
 
     private function createFolder(string $folder_name, string $icon)
     {
         $folder_name = escape($folder_name, true);
-        $icon = preg_match('/^fa-\w+$/', $icon)
+        $icon = preg_match('/fa-\w+/', $icon)
             ? '<i class="col-12 fad ' . $icon . ' fa-3x d-flex justify-content-center"></i>'
             : '<i class="col-12 fad fa-folder fa-3x d-flex justify-content-center"></i>';
         $icon = bin2hex($icon);
@@ -95,6 +97,7 @@ class FolderController extends \FastVolt\Core\Controller
 
     public function listAllFolders()
     {
+        $all_folders = [];
         $folders = (new Folders)
             ->where(['user' => Session::get('fs_user')])
             ->fetch_all_assoc();
@@ -106,22 +109,24 @@ class FolderController extends \FastVolt\Core\Controller
                 $f_icon = hex2bin($folder['icon']);
                 $url = '/' . $folder['uuid'];
 
-                return ' 
-                <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4">
-                   <div class="card border-dark">
-                    <div class="card-body bg-danger text-white">
-                      <div class="row">
-                        ' . $f_icon . '
+                $all_folders[] = ' 
+                    <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4">
+                       <div class="card border-dark">
+                        <div class="card-body bg-danger text-white">
+                          <div class="row">
+                            ' . $f_icon . '
+                          </div>
+                        </div>
+                        <a href="' . $url . '">
+                          <div class="card-footer bg-light text-danger">
+                            <span class="text-center">' . $folder['name'] . ' <i class="fa fa-arrow-circle-right"></i></span>
+                          </div>
+                        </a>
                       </div>
-                    </div>
-                    <a href="' . $url . '">
-                      <div class="card-footer bg-light text-danger">
-                        <span class="text-center">' . $folder['name'] . ' <i class="fa fa-arrow-circle-right"></i></span>
-                      </div>
-                    </a>
-                  </div>
-                </div>';
+                    </div>';
             }
+
+            return implode("\n\r", $all_folders);
         }
     }
 
