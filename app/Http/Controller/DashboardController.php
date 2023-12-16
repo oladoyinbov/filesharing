@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controller;
 
-class DashboardController extends \FastVolt\Core\Controller 
+use App\Model\Files;
+use FastVolt\Helper\Session;
+
+class DashboardController extends \FastVolt\Core\Controller
 {
 
     /**
@@ -81,12 +84,12 @@ class DashboardController extends \FastVolt\Core\Controller
                     <i class="fad fa-folder-minus fa-3x"></i>
                   </div>
                   <div class="col-9 text-right">
-                    <h1>30</h1>
+                    <h1>' . $this->getTotalFiles() . '</h1>
                     <h4>Total Files</h4>
                   </div>
                 </div>
               </div>
-              <a href="">
+              <a href="' . route('dash_myfiles') . '">
                 <div class="card-footer bg-light text-info">
                   <span class="float-left">More details</span>
                   <span class="float-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -113,5 +116,13 @@ class DashboardController extends \FastVolt\Core\Controller
 
     }
 
-        
+
+    private function getTotalFiles(): int
+    {
+        return (new Files)
+            ->where(['user' => Session::get('fs_user')])
+            ->num_rows();
+    }
+
+
 }

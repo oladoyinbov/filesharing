@@ -27,7 +27,8 @@
 
 {* Header Panel *}
 {block name='panel-2'}
-<a href="{route to='dash_upload_files'}" class="btn btn-dark"><i class="fad fa-folder-plus"></i> New Folder</a>
+<a href="{route to='dash_upload_files'}" class="btn btn-dark" data-bs-target="#createFolder" data-bs-toggle="modal">
+  <i class="fad fa-folder-plus"></i> New Folder</a>
 <a href="{route to='dash_account'}" class="btn btn-dark text-light me-2"><i class="fad fa-user-circle"></i> Account</a>
 <a href="{route to='dash_upload_files'}" class="btn btn-dark"><i class="fad fa-file-upload"></i> Upload File</a>
 {/block}
@@ -103,18 +104,31 @@
       </div> *}
 
       {foreach $files as $file}
-      <div class="col-lg-5 col-md-5 col-sm-12 border border-dark p-3 position-relative">
+      <div
+        class="col-lg-5 col-md-5 col-sm-12 border border-dark border-1 shadow shadow-dark shadow-1 p-3 position-relative">
         <div class="d-flex gap-2 justify-centent-around">
-          <div class="d-flex-10" style=""><i class="fad fa-music"></i></div>
+          <div class="d-flex-10" style="">
+            {if {$file.type} == 'image'}
+            <i class="fad fa-image fa-2x"></i>
+            {elseif {$file.type} == 'video'}
+            <i class="fad fa-file-video fa-2x"></i>
+            {elseif {$file.type} == 'document'}
+            <i class="fad fa-file-word fa-2x"></i>
+            {elseif {$file.type} == 'audio'}
+            <i class="fad fa-file-audio fa-2x"></i>
+            {elseif {$file.type} == 'archive'}
+            <i class="fad fa-file-archive fa-2x"></i>
+            {else}
+            <i class="fa fa-file"></i>
+            {/if}
+          </div>
           <div class="d-flex-50 overflow-y-hidden w-100" style="overflow:hidden;">{$file.name}</div>
           <div class="d-flex-40 position-relative w-10">
             <span class="position-absolute top-50 start-100 translate-middle">
-              <div class="dropend">
-                <a class="" type="button" data-bs-toggle="dropdown" aria-expanded="false" 
-                  hx-get="{route to='dash_myfiles_load_opt' params=['filexl'=> $file.uuid]}"
-                  hx-trigger='click once'
-                  hx-target='#fileopts-{$file.uuid}'
-                > <i class="fad fa-ellipsis-v fs-5"></i>
+              <div class="dropup-center dropup z-3">
+                <a class="" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                  hx-get="{route to='dash_myfiles_load_opt' params=['filexl'=> $file.uuid]}" hx-trigger='click'
+                  hx-target='#fileopts-{$file.uuid}'> <i class="fad fa-ellipsis-v fs-5"></i>
                 </a>
                 <ul class="dropdown-menu">
                   <div id="fileopts-{$file.uuid}"></div>
@@ -126,8 +140,8 @@
       </div>
 
       {* Rename Popup *}
-      <div class="modal fade" id="editFileName-{$file.uuid}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLiveLabel" aria-hidden="true">
+      <div class="modal fade" id="editFileName-{$file.uuid}" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLiveLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content rounded-4 shadow">
             <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -142,12 +156,13 @@
                 <input type='hidden' name='file_id' value='{$file.uuid}'>
 
                 <div class="form-floating mb-3">
-                  <input type="text" name="filename" class="form-control rounded-3" id="floatingInput" value="{$file.name}">
+                  <input type="text" name="filename" class="form-control rounded-3" id="floatingInput"
+                    value="{$file.name}">
                   <label for="floatingInput">File Name</label>
                 </div>
 
                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">
-                  Update 
+                  Update
                 </button>
                 <button type="button" class="w-100 mb-2 btn btn-lg rounded-3 btn-secondary" data-bs-dismiss="modal"
                   aria-label="Close">Cancel</button>
@@ -158,19 +173,19 @@
       </div>
 
       {* Preview Popup *}
-      <div class="modal fade" id="previewFile-{$file.uuid}" tabindex="-1" aria-labelledby="exampleModalFullscreenLabel" aria-hidden="true">
+      <div class="modal fade" id="previewFile-{$file.uuid}" tabindex="-1" aria-labelledby="exampleModalFullscreenLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-body" id="#displayprevfile-{$file.uuid}">
-              <div hx-get="{route to='dash_myfiles_preview_file' params=['id' => {$file.uuid}]}"
-                hx-trigger='revealed'
+              <div hx-get="{route to='dash_myfiles_preview_file' params=['id' => {$file.uuid}]}" hx-trigger='revealed'
                 hx-swap="innerHTML">
               </div>
             </div>
           </div>
         </div>
       </div>
-    {/foreach}
+      {/foreach}
 
 
     </div>
@@ -178,5 +193,12 @@
 </div>
 
 {/if}
+
+<div class="modal fade" id="createFolder" aria-hidden="true" data-bs-backdrop="static"
+  aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered" id="#createform_modal">
+   
+  </div>
+</div>
 
 {/block}

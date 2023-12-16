@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controller;
 
+use App\Enums\File as FileEnum;
 use App\Model\{Users, Files};
-use FastVolt\Helper\{Session, Image};
+use FastVolt\Helper\{Session, FileSystem as File};
 
 class MyFilesController extends \FastVolt\Core\Controller
 {
@@ -18,6 +19,8 @@ class MyFilesController extends \FastVolt\Core\Controller
     {
         $all_files = (new Files)
             ->where(['user' => Session::get('fs_user')])
+            ->sortBy('DESC')
+            ->orderBy('id')
             ->fetch_all_assoc();
 
 
@@ -36,11 +39,11 @@ class MyFilesController extends \FastVolt\Core\Controller
         <li><a class="dropdown-item" 
                 type="button" 
                 data-bs-toggle="modal" 
-                data-bs-target="#previewFile-'.request()->get('filexl').'"
+                data-bs-target="#previewFile-' . request()->get('filexl') . '"
             ><i class="fad fa-eye"></i> Preview </a>
         </li>
         <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#editFileName-'.request()->get('filexl').'"><i class="fad fa-edit"></i> Rename</a></li>
+        <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#editFileName-' . request()->get('filexl') . '"><i class="fad fa-edit"></i> Rename</a></li>
         <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" href="#"><i class="fad fa-key"></i> Secure File</a></li>
         <li><hr class="dropdown-divider"></li>
@@ -54,7 +57,7 @@ class MyFilesController extends \FastVolt\Core\Controller
         if (request()->is_post_request()) {
 
             $file_info = request()->input(['filename', 'file_id']);
-            
+
             $db = (new Files)
                 ->where([
                     'user' => Session::get('fs_user'),
@@ -91,28 +94,28 @@ class MyFilesController extends \FastVolt\Core\Controller
 
             if ($db) {
 
-                $file_dir = resources_path($db['path'] . '/' .$db['name'], true);
+                $file_dir = resources_path($db['path'] . '/' . $db['name'], true);
                 $file_name = escape($db['name'], true);
-                $file_size = Image::formatSize($db['size']);
+                $file_size = File::formatSize($db['size']);
                 $file_uuid = $db['uuid'];
-                $file_type = basename($file_name) ?? 'binary';
-                $file_meme_type = mime_content_type(resources_path($db['path'] . '/' .$db['name']));
+                $file_type = strtoupper(File::getType($file_name));
+                $file_meme_type = mime_content_type(resources_path($db['path'] . '/' . $db['name']));
+                $render_format = $this->renderFileDemo($file_dir, $db['type'], $file_meme_type);
 
                 return '
                 <div class="d-flex justify-content-between flex-nowrap mb-2">
                     <span class="w-75"><h4 class="mb-3">Preview File</h4></span>
                     <span class="d-flex w-25 flex-nowrap gap-2">
                         <button type="button" class="w-50 btn btn-danger btn-sm" data-bs-dismiss="modal"><i class="fad fa-file-download"></i></button>
-                        <button type="button" class="w-50 btn btn-warning btn-sm" data-bs-dismiss="modal"><i class="fad fa-times-circle" style="color:white;"></i></button>
+                        <button type="button" class="w-50 btn btn-dark btn-sm" data-bs-dismiss="modal"><i class="fad fa-times-circle" style="color:white;"></i></button>
                     </span>
                 </div>
-                <div class="d-flex justify-content-between w-100 flex-wrap flex-sm-wrap flex-lg-nowrap gap-1 flex-xl-nowrap flex-xxl-nowrap flex-md-nowrap">
-  
+                <div class="d-flex justify-content-between w-100 flex-wrap flex-sm-wrap flex-lg-nowrap gap-1 flex-xl-nowrap flex-xxl-nowrap flex-md-wrap">
                   <div class="w-100">
-                    <img src='.$file_dir.' class="img-fluid rounded" width="100%" height="100%">
+                    ' . $render_format . '
                   </div>
   
-                  <div class="w-100">
+                  <div class="w-75">
                     <div class="mx-3">
                       <div class="modal-header border-bottom-0">
                         <span class=""><h1 class="fw-bold fs-2">File Info</h1></span>
@@ -120,14 +123,14 @@ class MyFilesController extends \FastVolt\Core\Controller
   
                       <div class="">
                          <ul class="list-group fs-5">
-                            <li class="list-group-item"><strong class="fw-bold">File Name:</strong> '.$file_name.' 
+                            <li class="list-group-item"><strong class="fw-bold">File Name:</strong> ' . $file_name . ' 
                                 <a>
-                                    <i class="fad fa-pen-square" type="button" data-bs-toggle="modal" data-bs-target="#editFileName-'.$file_uuid.'"></i>
+                                    <i class="fad fa-pen-square" type="button" data-bs-toggle="modal" data-bs-target="#editFileName-' . $file_uuid . '"></i>
                                 </a>
                             </li>
-                            <li class="list-group-item"><strong class="fw-bold">File Size:</strong> '.$file_size.'</li>
-                            <li class="list-group-item"><strong class="fw-bold">File Type:</strong> '.$file_type.'</strong> </li>
-                            <li class="list-group-item"><strong class="fw-bold">File Meme:</strong> '.$file_meme_type.'</strong> </li>
+                            <li class="list-group-item"><strong class="fw-bold">File Size:</strong> ' . $file_size . '</li>
+                            <li class="list-group-item"><strong class="fw-bold">File Type:</strong> ' . $file_type . '</strong> </li>
+                            <li class="list-group-item"><strong class="fw-bold">File Meme:</strong> ' . $file_meme_type . '</strong> </li>
                             <li class="list-group-item"><strong class="fw-bold">File Description:</strong> </li>
                          </ul>
                       </div>
@@ -136,8 +139,20 @@ class MyFilesController extends \FastVolt\Core\Controller
                 </div>
   
                ';
-            } 
+            }
         }
+    }
+
+
+    private function renderFileDemo($file_dir, $type, $mime = '')
+    {
+        return match ($type) {
+            'image' => '<img src=' . $file_dir . ' class="img-fluid rounded" width="100%" height="100%">',
+            'video' => '<video width="320" height="400" class="object-fit-cover" controls>
+                          <source src="'.$file_dir.'" type="'.$mime.'">
+                          Your browser does not support the video tag.
+                        </video>'
+        };
     }
 
 

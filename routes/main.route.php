@@ -32,4 +32,5 @@ Route::group('/user', 'dash.auth')
     -> get('/myfiles/fopt', 'MyFilesController@loadOptions', name: 'dash_myfiles_load_opt')
     -> post('/myfiles/opt/rename', 'MyFilesController@renameFile', 'verify.csrf' , name: 'dash_update_file_name')
     -> get('/myfiles/opt/preview/{id}', 'MyFilesController@previewFile', name: 'dash_myfiles_preview_file')
+    -> get('/myfiles/opt/folder/new', 'FolderController@create', name: 'dash_create_folder')
     -> mixed(['GET', 'POST'], '/upload', 'FileUploadController@uploadFilesInterface', name: 'dash_upload_files');

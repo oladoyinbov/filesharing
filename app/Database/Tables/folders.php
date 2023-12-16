@@ -7,7 +7,7 @@ namespace App\Database\Tables;
 use FastVolt\Core\Database\Mysql\Table;
 use FastVolt\Core\Database\Mysql\Table\Schema;
 
-class files
+class folders
 {
 
     /**
@@ -17,19 +17,11 @@ class files
      */
     public function up()
     {
-        Table::create('files')->colomn(function (Schema $schema) {
+        Table::create('folders')->colomn(function (Schema $schema) {
 
             $schema->intField('id', length: 11, auto_increment: true);
-            $schema->varCharField('uuid');
-            $schema->varCharField('user');
             $schema->varCharField('name');
-            $schema->varCharField('type');
-            $schema->varCharField('description');
-            $schema->varCharField('size');
-            $schema->varCharField('path');
-            $schema->varCharField('folder');
-            $schema->timeStamp('last_modified');
-            $schema->timeStamp();
+            $schema->varCharField('icon');
 
         });
     }  
@@ -42,7 +34,7 @@ class files
      */
     public function down()
     {
-        Table::drop('files');
+        Table::drop('folders');
     }
      
 }    
