@@ -151,7 +151,8 @@ class MyFilesController extends \FastVolt\Core\Controller
             'video' => '<video width="320" height="400" class="object-fit-cover" controls>
                           <source src="'.$file_dir.'" type="'.$mime.'">
                           Your browser does not support the video tag.
-                        </video>'
+                        </video>',
+            default => '<i class="fad fa-file 5x"></i>'
         };
     }
 

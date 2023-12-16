@@ -20,8 +20,11 @@ class folders
         Table::create('folders')->colomn(function (Schema $schema) {
 
             $schema->intField('id', length: 11, auto_increment: true);
+            $schema->varCharField('uuid');
             $schema->varCharField('name');
+            $schema->varCharField('user');
             $schema->varCharField('icon');
+            $schema->timeStamp();
 
         });
     }  

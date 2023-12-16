@@ -21,31 +21,39 @@
 
 {block name='panel-1'}
 <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
-  <input type="search" class="form-control" placeholder="Search Files..." aria-label="Search">
+  <input type="search" class="form-control w-100" placeholder="Search Files..." aria-label="Search">
 </form>
 {/block}
 
 {* Header Panel *}
 {block name='panel-2'}
-<a href="{route to='dash_upload_files'}" class="btn btn-dark" data-bs-target="#createFolder" data-bs-toggle="modal">
-  <i class="fad fa-folder-plus"></i> New Folder</a>
-<a href="{route to='dash_account'}" class="btn btn-dark text-light me-2"><i class="fad fa-user-circle"></i> Account</a>
-<a href="{route to='dash_upload_files'}" class="btn btn-dark"><i class="fad fa-file-upload"></i> Upload File</a>
+<div class="">
+    <a href="{route to='dash_upload_files'}" 
+      class="btn btn-dark" 
+      data-bs-target="#createFolder" 
+      data-bs-toggle="modal"
+      hx-get="{route to='dash_create_folder' params=['show' => 'form']}"
+      hx-trigger="click"
+      hx-target="#newfolderspace"
+    >
+      <i class="fad fa-folder-plus"></i> New Folder</a>
+    <a href="{route to='dash_upload_files'}" class="btn btn-dark"><i class="fad fa-file-upload"></i> Upload File</a>
+</div>
 {/block}
 
 
 {* Page Body *}
 {block name='body'}
 
-<div class="col-10 mx-auto p-2 py-md-2 mt-0">
+<div class="col-10 mx-auto p-2 mb-2 py-md-2 mt-0">
   <div class="float-left fs-1 fw-bolder">Folders <i class="fad fa-caret-right"></i></div>
 </div>
 
 
-<div class="container mb-4">
+<div class="container mb-5">
   <div class="row gap-2">
 
-    <div class="col-lg-2 col-md-3 col-xs-4 col-sm-5" style="background-color:transparent;">
+    <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4" style="background-color:transparent;">
       <div class="card border-dark">
         <div class="card-body bg-danger text-white">
           <div class="row">
@@ -54,7 +62,39 @@
         </div>
         <a href="">
           <div class="card-footer bg-light text-danger">
-            <span class="text-center">Musics <i class="fa fa-arrow-circle-right"></i></span>
+            <span class="text-center">Documents <i class="fa fa-arrow-circle-right"></i></span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+
+    <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4">
+      <div class="card border-dark">
+        <div class="card-body bg-danger text-white">
+          <div class="row">
+            <i class="col-12 fad fa-folder fa-3x d-flex justify-content-center"></i>
+          </div>
+        </div>
+        <a href="">
+          <div class="card-footer bg-light text-danger">
+            <span class="text-center">Music <i class="fa fa-arrow-circle-right"></i></span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+
+      <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4">
+      <div class="card border-dark">
+        <div class="card-body bg-danger text-white">
+          <div class="row">
+            <i class="col-12 fad fa-folder fa-3x d-flex justify-content-center"></i>
+          </div>
+        </div>
+        <a href="">
+          <div class="card-footer bg-light text-danger">
+            <span class="text-center">Pictures <i class="fa fa-arrow-circle-right"></i></span>
           </div>
         </a>
       </div>
@@ -76,6 +116,42 @@
       </div>
     </div>
 
+
+    <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4">
+      <div class="card border-dark">
+        <div class="card-body bg-danger text-white">
+          <div class="row">
+            <i class="col-12 fad fa-folder fa-3x d-flex justify-content-center"></i>
+          </div>
+        </div>
+        <a href="">
+          <div class="card-footer bg-light text-danger">
+            <span class="text-center">Pictures <i class="fa fa-arrow-circle-right"></i></span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+
+    <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4">
+      <div class="card border-dark">
+        <div class="card-body bg-danger text-white">
+          <div class="row">
+            <i class="col-12 fad fa-folder fa-3x d-flex justify-content-center"></i>
+          </div>
+        </div>
+        <a href="#">
+          <div class="card-footer bg-light text-danger">
+            <span class="text-center">Pictures <i class="fa fa-arrow-circle-right"></i></span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div hx-get="{route to='dash_create_folder' params=['show' => 'form']}"
+      hx-trigger="click"
+      hx-swap="outerHTML"
+    ></div>
 
   </div>
 </div>
@@ -122,7 +198,7 @@
             <i class="fa fa-file"></i>
             {/if}
           </div>
-          <div class="d-flex-50 overflow-y-hidden w-100" style="overflow:hidden;">{$file.name}</div>
+          <div class="d-flex-50 overflow-y-hidden text-truncate w-100" style="overflow:hidden;">{$file.name}</div>
           <div class="d-flex-40 position-relative w-10">
             <span class="position-absolute top-50 start-100 translate-middle">
               <div class="dropup-center dropup z-3">
@@ -196,8 +272,8 @@
 
 <div class="modal fade" id="createFolder" aria-hidden="true" data-bs-backdrop="static"
   aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered" id="#createform_modal">
-   
+  <div class="modal-dialog modal-dialog-centered">
+   <div id="newfolderspace"><div>
   </div>
 </div>
 

@@ -32,15 +32,15 @@
     </div>
     <div class="px-3 py-2 border-bottom mb-3">
       <div class="container d-flex flex-wrap justify-content-between">
-      <div class="text-start">
-        {block name='panel-1'}
-           <a href="{route to='dashboard'}" class="btn btn-dark"><i class="fad fa-caret-left"></i> Back To Home</a></div>
-        {/block}
-      </div>
+          <div class="text-start">
+            {block name='panel-1'}
+               <a href="{route to='dashboard'}" class="btn btn-dark"><i class="fad fa-caret-left"></i> Back To Home</a></div>
+            {/block}
+          </div>
 
-        <div class="text-end">
-        {block name='panel-2'}{/block}
-        </div>
+          <div class="text-end">
+            {block name='panel-2'}{/block}
+          </div>
       </div>
     </div>
   </header>
