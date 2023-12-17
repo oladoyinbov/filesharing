@@ -106,7 +106,7 @@ class FolderController extends \FastVolt\Core\Controller
             foreach ($folders as $folder) {
 
                 $f_icon = hex2bin($folder['icon']);
-                $url = '/' . $folder['uuid'];
+                $url = route('dash_folder', ['id' => $folder['uuid']]);
 
                 $all_folders[] = ' 
                     <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4">
@@ -126,6 +126,30 @@ class FolderController extends \FastVolt\Core\Controller
             }
 
             return implode("\n\r", $all_folders);
+        }
+    }
+
+
+    public function viewFolder(string $uuid)
+    {
+        $uuid = escape($uuid, true);
+
+        if (is_uuid($uuid)) {
+
+            $db = (new Folders)
+                ->where([
+                    'user' => Session::get('fs_user'),
+                    'uuid' => $uuid
+                ]);
+
+            if ($db->num_rows() == 0) {
+                return render_error_page();
+            }
+
+            $f = $db->fetch_one();
+            $name = $f['name'];
+
+            return "<h3>{$name}</h3>";
         }
     }
 }
