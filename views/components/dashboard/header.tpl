@@ -34,7 +34,7 @@
       <div class="container d-flex flex-wrap justify-content-between">
           <div class="text-start">
             {block name='panel-1'}
-               <a href="{route to='dashboard'}" class="btn btn-dark"><i class="fad fa-caret-left"></i> Back To Home</a></div>
+               <a href="{route to='dashboard'}" class="btn btn-dark"><i class="fad fa-caret-left"></i> Back To Home</a>
             {/block}
           </div>
 

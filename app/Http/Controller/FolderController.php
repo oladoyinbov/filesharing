@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controller;
 
-use App\Model\Folders;
+use App\Model\{Folders, Files};
 use FastVolt\Helper\{Session, CsrfToken, UUID};
 
 class FolderController extends \FastVolt\Core\Controller
@@ -111,13 +111,13 @@ class FolderController extends \FastVolt\Core\Controller
                 $all_folders[] = ' 
                     <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4">
                        <div class="card border-dark">
-                        <div class="card-body bg-danger text-white">
+                        <div class="card-body bg-warning text-white">
                           <div class="row">
                             ' . $f_icon . '
                           </div>
                         </div>
                         <a href="' . $url . '">
-                          <div class="card-footer bg-light text-danger">
+                          <div class="card-footer bg-light text-dark fw-bolder">
                             <span class="text-center">' . $folder['name'] . ' <i class="fa fa-arrow-circle-right"></i></span>
                           </div>
                         </a>
@@ -130,25 +130,40 @@ class FolderController extends \FastVolt\Core\Controller
     }
 
 
-    public function viewFolder(string $uuid)
+    public function viewFolder(string $uuid, int $page_number = 1)
     {
         $uuid = escape($uuid, true);
 
         if (is_uuid($uuid)) {
-
-            $db = (new Folders)
+ 
+            $folder_db = (new Folders)
                 ->where([
                     'user' => Session::get('fs_user'),
                     'uuid' => $uuid
                 ]);
 
-            if ($db->num_rows() == 0) {
+            $files_db = (new Files)
+                ->where([
+                    'user' => Session::get('fs_user'),
+                    'folder' => $uuid
+                ]);
+
+            if ($folder_db->num_rows() == 0) {
                 return render_error_page();
             }
 
             return $this->render('folder', [
-                'folder_info' => $db->fetch_one()
+                'folder_info' => $folder_db->fetch_one(),
+                'files_items' => $files_db->paginate($page_number, 10)
             ]);
+        }
+    }
+
+
+    public function deleteFolder(string $folder_id)
+    {
+        if (is_uuid($folder_id)) {
+            
         }
     }
 }

@@ -18,16 +18,34 @@
 {block name='title'} Upload Files {/block}
 
 
+{*  Page Header 1  *}
+{block name='panel-1'}
+   <a href="{route to='dash_myfiles'}" class="btn btn-dark"><i class="fad fa-caret-left"></i> Back To MyFiles</a>
+{/block}
+
+
+{*  Page Header 2  *}
+{block name='panel-2'} 
+    {if $folder_name != null}
+        <a href="{$folder_url}" class="btn btn-warning"><i class="fad fa-folder"></i> {$folder_name}</a>
+    {/if}
+{/block}
+
+
 {*  Page Body  *}
 {block name='body'}
 
 <div class="m-4 mt-5" id="message">
     <center>
+
         <div class="border border-primary-subtle shadow shadow shadow-dark shadow-lg rounded px-4 py-1 pt-5 pb-5 my-3 m-5 text-center">
 
             <form id='form' hx-encoding='multipart/form-data' hx-post='' hx-trigger='change' hx-target='#message'>
                 <label for="mfl"><i class="fad fa-cloud-upload-alt fa-5x"></i></label>
                 <input type='file' name='hc_file[]' id='mfl' multiple><br>
+                {if $folder_name != null}
+                <input type='hidden' name='f' value='{bin2hex($folder_name)}'><br>
+                {/if}
                 <h5>Choose Your File to Upload</h5>
 
                 <div id="loading">

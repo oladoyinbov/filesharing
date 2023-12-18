@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controller;
 
 use App\Enums\File;
-use App\Model\{Users, Files};
+use App\Model\{Users, Files, Folders};
 use FastVolt\Helper\{UUID, Session, FileSystem};
 
 class FileUploadController extends \FastVolt\Core\Controller
@@ -59,7 +59,15 @@ class FileUploadController extends \FastVolt\Core\Controller
             $this->result(false, 'Something Went Wrong!') . $this->backToHomeButton();
         }
 
-        return $this->render('upload_files');
+        # store folder id value
+        $this->storeFolderId(request()->get('f'));
+        $getFolderId = $this->folderExist(request()->get('f')) ? request()->get('f') : null;
+
+
+        return $this->render('upload_files', [
+            'folder_name' => $this->getFolderName($getFolderId ?? null) ?? null,
+            'folder_url' => route('dash_folder', ['id' => $getFolderId ?? ''])
+        ]);
     }
 
 
@@ -80,6 +88,7 @@ class FileUploadController extends \FastVolt\Core\Controller
             $upload_path = "uploads/u/{$user}/{$year}/{$month}";
             $upload_dir = resources_path($upload_path);
             $file_type = $this->getFileType($file);
+            $folder = $this->folderExist(request()->get('f')) ? request()->get('f') : '';
 
             # save file to directory
             if ($file->save($upload_dir, $file_name)) {
@@ -94,6 +103,7 @@ class FileUploadController extends \FastVolt\Core\Controller
                     'description' => '',
                     'size' => $file_size,
                     'path' => $upload_path,
+                    'folder' => $folder,
                     'last_modified' => get_timestamp(),
                     'created_at' => get_timestamp()
                 ]);
@@ -102,6 +112,7 @@ class FileUploadController extends \FastVolt\Core\Controller
 
         return false;
     }
+
 
 
     /**
@@ -139,7 +150,7 @@ class FileUploadController extends \FastVolt\Core\Controller
     {
         if ($file->is_image_file()) {
             return File::IMAGE->get();
-        } 
+        }
 
         if ($file->is_audio_file()) {
             return File::AUDIO->get();
@@ -161,6 +172,80 @@ class FileUploadController extends \FastVolt\Core\Controller
     }
 
 
+
+    /**
+     * Check if Folder Exist
+     */
+    private function folderExist(string|null $folder_id): bool
+    {
+        if ($folder_id == null || $folder_id == '' || !is_uuid($folder_id)) {
+            return false;
+        }
+
+        $folder_id = escape($folder_id, true);
+
+        $db = (new Folders)
+            ->where([
+                'user' => Session::get('fs_user'),
+                'uuid' => $folder_id
+            ]);
+
+        if ($db->num_rows() > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+
+    private function getFolderName(string|null $pid): ?string
+    {
+        if ($this->folderExist($pid)) {
+
+            $db = (new Folders)
+                ->where([
+                    'user' => Session::get('fs_user'),
+                    'uuid' => $pid
+                ]);
+
+            if ($db->num_rows() > 0) {
+                $folder_name = $db->fetch_one()['name'];
+                return $folder_name;
+            }
+        }
+
+        return null;
+    }
+
+
+
+    private function storeFolderId(string|null $folder_id)
+    {
+        if ($folder_id !== null || $folder_id !== '') {
+            # store session, if get request exist
+            if (Session::has('f_to')) {
+                Session::unset('f_to');
+            }
+
+            if ($this->folderExist($folder_id)) {
+                Session::store('f_to', $folder_id);
+            }
+        }
+    }
+
+
+    private function redirectTo(): ?string
+    {
+        $query = Session::has('f_to') ? Session::get('f_to') : null;
+
+        return ($query != null || $query != '')
+            ? route('dash_upload_files', ['f' => $query])
+            : route('dash_upload_files');
+    }
+
+
+
     /**
      * Return Operation Result in HTML
      */
@@ -171,7 +256,7 @@ class FileUploadController extends \FastVolt\Core\Controller
             : $custom_icon ?? '<i class="fas fa-exclamation-circle"></i> ';
 
         # redirect back to uploads
-        response()->redirect(route('dash_upload_files'), timer: 4000);
+        response()->redirect($this->redirectTo(), timer: 4000);
 
         return match ($status) {
 

@@ -29,7 +29,7 @@
 {block name='panel-2'}
 <div class="">
     <a href="{route to='dash_upload_files'}" 
-      class="btn btn-dark" 
+      class="btn btn-info" 
       data-bs-target="#createFolder" 
       data-bs-toggle="modal"
       hx-get="{route to='dash_create_folder' params=['show' => 'form']}"
@@ -37,7 +37,7 @@
       hx-target="#newfolderspace"
     >
       <i class="fad fa-folder-plus"></i> New Folder</a>
-    <a href="{route to='dash_upload_files'}" class="btn btn-dark"><i class="fad fa-file-upload"></i> Upload File</a>
+    <a href="{route to='dash_upload_files'}" class="btn btn-warning"><i class="fad fa-file-upload"></i> Upload File</a>
 </div>
 {/block}
 
@@ -55,13 +55,13 @@
 
     <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4" style="background-color:transparent;">
       <div class="card border-dark">
-        <div class="card-body bg-danger text-white">
+        <div class="card-body bg-warning text-white">
           <div class="row">
             <i class="col-12 fad fa-folder fa-3x d-flex justify-content-center"></i>
           </div>
         </div>
         <a href="">
-          <div class="card-footer bg-light text-danger">
+          <div class="card-footer bg-light text-dark fw-bolder">
             <span class="text-center">Documents <i class="fa fa-arrow-circle-right"></i></span>
           </div>
         </a>
@@ -71,13 +71,13 @@
 
     <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4">
       <div class="card border-dark">
-        <div class="card-body bg-danger text-white">
+        <div class="card-body bg-warning text-white">
           <div class="row">
             <i class="col-12 fad fa-folder fa-3x d-flex justify-content-center"></i>
           </div>
         </div>
         <a href="">
-          <div class="card-footer bg-light text-danger">
+          <div class="card-footer bg-light text-dark fw-bolder">
             <span class="text-center">Music <i class="fa fa-arrow-circle-right"></i></span>
           </div>
         </a>
@@ -87,13 +87,13 @@
 
       <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4">
       <div class="card border-dark">
-        <div class="card-body bg-danger text-white">
+        <div class="card-body bg-warning text-white">
           <div class="row">
             <i class="col-12 fad fa-folder fa-3x d-flex justify-content-center"></i>
           </div>
         </div>
         <a href="">
-          <div class="card-footer bg-light text-danger">
+          <div class="card-footer bg-light text-dark fw-bolder">
             <span class="text-center">Pictures <i class="fa fa-arrow-circle-right"></i></span>
           </div>
         </a>
@@ -103,13 +103,13 @@
 
     <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4">
       <div class="card border-dark">
-        <div class="card-body bg-danger text-white">
+        <div class="card-body bg-warning text-white">
           <div class="row">
             <i class="col-12 fad fa-folder fa-3x d-flex justify-content-center"></i>
           </div>
         </div>
         <a href="">
-          <div class="card-footer bg-light text-danger">
+          <div class="card-footer bg-light text-dark fw-bolder">
             <span class="text-center">Videos <i class="fa fa-arrow-circle-right"></i></span>
           </div>
         </a>
@@ -119,13 +119,13 @@
 
     <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4">
       <div class="card border-dark">
-        <div class="card-body bg-danger text-white">
+        <div class="card-body bg-warning text-white">
           <div class="row">
             <i class="col-12 fad fa-folder fa-3x d-flex justify-content-center"></i>
           </div>
         </div>
         <a href="">
-          <div class="card-footer bg-light text-danger">
+          <div class="card-footer bg-light text-dark fw-bolder">
             <span class="text-center">Pictures <i class="fa fa-arrow-circle-right"></i></span>
           </div>
         </a>
@@ -135,13 +135,13 @@
 
     <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4">
       <div class="card border-dark">
-        <div class="card-body bg-danger text-white">
+        <div class="card-body bg-warning text-white">
           <div class="row">
             <i class="col-12 fad fa-folder fa-3x d-flex justify-content-center"></i>
           </div>
         </div>
         <a href="#">
-          <div class="card-footer bg-light text-danger">
+          <div class="card-footer bg-light text-dark fw-bolder">
             <span class="text-center">Pictures <i class="fa fa-arrow-circle-right"></i></span>
           </div>
         </a>
@@ -167,33 +167,21 @@
   <div class="m-3">
     <div class="row gap-2">
 
-      {* <div class="col-lg-5 col-md-5 col-sm-12 border border-dark p-3 position-relative">
-        <div class="d-flex gap-2 justify-centent-around">
-          <div class="d-flex-10" style=""><i class="fad fa-music"></i></div>
-          <div class="d-flex-50 overflow-y-hidden" style="width:100%;overflow:hidden;">
-            Audio_12i8388374643884784784784784747747474747847874.mp3</div>
-          <div class="d-flex-40 position-relative" style="width:10%;">
-            <a href='#' class="position-absolute top-50 start-100 translate-middle"><i
-                class="fad fa-ellipsis-v fs-5"></i></a>
-          </div>
-        </div>
-      </div> *}
-
       {foreach $files as $file}
       <div
         class="col-lg-5 col-md-5 col-sm-12 border border-dark border-1 shadow shadow-dark shadow-1 p-3 position-relative">
         <div class="d-flex gap-2 justify-centent-around">
           <div class="d-flex-10" style="">
             {if {$file.type} == 'image'}
-            <i class="fad fa-image fa-2x"></i>
+            <i class="fad fa-image fa-2x text-primary"></i>
             {elseif {$file.type} == 'video'}
-            <i class="fad fa-file-video fa-2x"></i>
+            <i class="fad fa-file-video fa-2x text-warning"></i>
             {elseif {$file.type} == 'document'}
-            <i class="fad fa-file-word fa-2x"></i>
+            <i class="fad fa-file-word fa-2x text-info"></i>
             {elseif {$file.type} == 'audio'}
-            <i class="fad fa-file-audio fa-2x"></i>
+            <i class="fad fa-file-audio fa-2x text-danger"></i>
             {elseif {$file.type} == 'archive'}
-            <i class="fad fa-file-archive fa-2x"></i>
+            <i class="fad fa-file-archive fa-2x text-success"></i>
             {else}
             <i class="fa fa-file"></i>
             {/if}
