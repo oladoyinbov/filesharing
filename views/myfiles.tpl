@@ -45,6 +45,12 @@
 {* Page Body *}
 {block name='body'}
 
+{if {flash_message} !== null}
+<div class="container mb-5">
+<div class="container alert alert-warning p-2">{flash_message}</div>
+</div>
+{/if}
+
 <div class="col-10 mx-auto p-2 mb-2 py-md-2 mt-0">
   <div class="float-left fs-1 fw-bolder">Folders <i class="fad fa-caret-right"></i></div>
 </div>

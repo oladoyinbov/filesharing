@@ -135,7 +135,7 @@ class FolderController extends \FastVolt\Core\Controller
         $uuid = escape($uuid, true);
 
         if (is_uuid($uuid)) {
- 
+
             $folder_db = (new Folders)
                 ->where([
                     'user' => Session::get('fs_user'),
@@ -160,10 +160,55 @@ class FolderController extends \FastVolt\Core\Controller
     }
 
 
-    public function deleteFolder(string $folder_id)
+    public function deleteFolder()
     {
-        if (is_uuid($folder_id)) {
-            
+        if (request()->hasPostItems('f_id') && is_uuid(request()->post('f_id'))) {
+
+            # folder uuid
+            $folder_id = request()->post('f_id');
+
+            $get_folder = (new Folders)
+                ->where([
+                    'user' => Session::get('fs_user'),
+                    'uuid' => $folder_id
+                ]);
+
+            $get_files = (new Files)
+                ->where([
+                    'user' => Session::get('fs_user'),
+                    'folder' => $folder_id
+                ]);
+
+            $get_folder_name = $get_folder->fetch_only('name')->name;
+
+            # delete folder with the folder id
+            if ($get_folder->delete()) {
+
+                # delete all files with the folder id
+                if ($get_files->num_rows() > 0) {
+
+                    foreach ($get_files->fetch_all_assoc() as $file) {
+                        # get file path
+                        $file_dir = resources_path($file['path'] . '/' . $file['name']);
+
+                        if (is_dir($file_dir)) {
+                            # delete file in local
+                            unlink($file_dir);
+                            # delete file in db
+                            $get_files->delete();
+                        }
+
+                        continue;
+                    }
+                }
+
+                flash_message("<i class='fa fa-folder'></i> Folder: {$get_folder_name} Deleted Successfully!");
+                return response()->redirect(route('dash_myfiles'));
+            }
+
+
+            flash_message("Unable to Delete {$get_folder_name} Folder");
+            return response()->redirect(route('dash_myfiles'));
         }
     }
 }
