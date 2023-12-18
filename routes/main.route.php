@@ -35,4 +35,5 @@ Route::group('/user', 'dash.auth')
     -> mixed(['GET', 'POST'], '/myfiles/opt/folder', 'FolderController@init', 'verify.csrf', name: 'dash_create_folder')
     -> get('/myfiles/opt/folder/listall', 'FolderController@listAllFolders', name: 'dash_list_all_folders')
     -> mixed(['GET', 'POST'], '/folder/{id:string}', 'FolderController@viewFolder', name: 'dash_folder')
+    -> post('/folder/delete', 'FolderController@deleteFolder', 'verify.csrf', name: 'dash_folder_delete')
     -> mixed(['GET', 'POST'], '/upload', 'FileUploadController@uploadFilesInterface', name: 'dash_upload_files');

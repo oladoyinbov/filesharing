@@ -210,5 +210,7 @@ class FolderController extends \FastVolt\Core\Controller
             flash_message("Unable to Delete {$get_folder_name} Folder");
             return response()->redirect(route('dash_myfiles'));
         }
+
+        return render_error_page();
     }
 }
