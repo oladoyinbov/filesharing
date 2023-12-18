@@ -146,10 +146,9 @@ class FolderController extends \FastVolt\Core\Controller
                 return render_error_page();
             }
 
-            $f = $db->fetch_one();
-            $name = $f['name'];
-
-            return "<h3>{$name}</h3>";
+            return $this->render('folder', [
+                'folder_info' => $db->fetch_one()
+            ]);
         }
     }
 }
