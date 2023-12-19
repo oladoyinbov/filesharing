@@ -38,9 +38,10 @@
         <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#"><i class="fad fa-edit"></i> Folder Name</a></li>
             <li><a class="dropdown-item" href="#"><i class="fas fa-share"></i> Share</a></li>
-            <form method="POST" action="{route to='dash_folder_delete'}">
-            <input type="hidden" name="f_id" value="{$folder_info.uuid}">
-            <li><button type="submit" class="dropdown-item" href="#"><i class="fas fa-trash-alt"></i> Delete</button></li>
+            <form action="{route to='dash_folder_delete'}" method="post">
+            {csrf_token}
+              <input type="hidden" name="f_id" value="{$folder_info.uuid}">
+              <li><button type="submit" class="dropdown-item" href="#"><i class="fas fa-trash-alt"></i> Delete</button></li>
             </form>
         </ul>
 </div>

@@ -10,11 +10,9 @@ use FastVolt\Router\Route;
 
 Route::get('/', 'HomeController@index', name: 'home');
 Route::get('/test', function() {
-   [$db, $mui] = [new stdClass, []];
-   $db->name = 'cool';
-   $db->class = 'grad';
-
-   print_r(count((array)$db));
+   $_SESSION['hxx'] = 'hello';
+   echo $_SESSION['hxx'];
+   unset($_SESSION['hxx']);
 });
 
 # Login Auth
@@ -35,5 +33,5 @@ Route::group('/user', 'dash.auth')
     -> mixed(['GET', 'POST'], '/myfiles/opt/folder', 'FolderController@init', 'verify.csrf', name: 'dash_create_folder')
     -> get('/myfiles/opt/folder/listall', 'FolderController@listAllFolders', name: 'dash_list_all_folders')
     -> mixed(['GET', 'POST'], '/folder/{id:string}', 'FolderController@viewFolder', name: 'dash_folder')
-    -> post('/folder/delete', 'FolderController@deleteFolder', 'verify.csrf', name: 'dash_folder_delete')
+    -> post('/folder/action/delete', 'FolderController@deleteFolder', 'verify.csrf', name: 'dash_folder_delete')
     -> mixed(['GET', 'POST'], '/upload', 'FileUploadController@uploadFilesInterface', name: 'dash_upload_files');

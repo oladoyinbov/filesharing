@@ -64,8 +64,6 @@ class LoginController extends \FastVolt\Core\Controller
             'email' => 'Email input is invalid',
             'password' => 'Password field is required'
         ]);
-
-
     }
 
 

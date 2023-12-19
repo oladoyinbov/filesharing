@@ -48,7 +48,7 @@
 {*  Flash Messages  *}
 {if {flash_message} != null}
   <div class="container mb-5">
-    <div class="container alert alert-warning p-2">Hello People{flash_message}</div>
+    <div class="container alert alert-warning p-2">{flash_message}</div>
   </div>
 {/if}
 
