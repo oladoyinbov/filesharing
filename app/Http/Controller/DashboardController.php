@@ -23,7 +23,7 @@ class DashboardController extends \Fastvolt\Core\Controller
 
     public function stats(): string
     {
-        sleep(2);
+        sleep(1);
         return '
         <div class="container mb-4">
         <div class="row">
