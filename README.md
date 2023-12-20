@@ -1,11 +1,11 @@
 # Foster Framework
 
-FastVolt is a simple, fast and scalable php web framework used for building web applications.
+Fastvolt is a simple, fast and scalable php web framework used for building web applications.
 this framework is best suited for entry-level php developers because of it simplicity.
 
 # Installation
 ```php
-composer require FastVolt/core
+composer require Fastvolt/core
 ```
 ✨ **Requirements**:
 - [ ] PHP 8.1
@@ -17,9 +17,9 @@ composer require FastVolt/core
 ### 🖥️ Starting a server
 
 ```cmd
-php -S localhost:8000 -t FastVolt/
+php -S localhost:8000 -t Fastvolt/
 ```
-> **NOTE**: `FastVolt` should be the directory name or folder name where foster framework was installed into.
+> **NOTE**: `Fastvolt` should be the directory name or folder name where foster framework was installed into.
 
 <br>
 
@@ -27,7 +27,7 @@ php -S localhost:8000 -t FastVolt/
 Creating a simple app that returns a response text "hello world" in (***file**: routes/main.route.php*).
 <br><br>
 ```php
-use FastVolt\Router\Route;
+use Fastvolt\Router\Route;
 
 Route::get('/', fn() => "hello world");
 ```

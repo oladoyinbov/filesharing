@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-class Folders extends \FastVolt\Core\Model
+class Folders extends \Fastvolt\Core\Model
 {
 
     /**

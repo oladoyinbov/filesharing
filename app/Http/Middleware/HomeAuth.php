@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use FastVolt\Helper\Session;
+use Fastvolt\Helper\Session;
 
-class HomeAuth extends \FastVolt\Core\Middleware
+class HomeAuth extends \Fastvolt\Core\Middleware
 {
-    public function implement(\FastVolt\Core\Http\HttpRequest $request)
+    public function implement(\Fastvolt\Core\Http\HttpRequest $request)
     {
         if (Session::has('fs_user')) {
 

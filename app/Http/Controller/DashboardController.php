@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controller;
 
 use App\Model\Files;
-use FastVolt\Helper\Session;
+use Fastvolt\Helper\Session;
 
-class DashboardController extends \FastVolt\Core\Controller
+class DashboardController extends \Fastvolt\Core\Controller
 {
 
     /**

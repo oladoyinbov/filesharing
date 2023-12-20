@@ -5,7 +5,7 @@
     <i class="fad fa-fan fa-spin fa-5x mb-4" style="color:#7A11F8"></i><br>
     <h1 class="container display-5 fw-bold" id="typing-effect">Controller</h1><sup></sup>
     <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4">Development section of FastVolt Framework</p>
+      <p class="lead mb-4">Development section of Fastvolt Framework</p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
         
       </div>

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
-use FastVolt\Core\Http\HttpRequest as Request;
+use Fastvolt\Core\Http\HttpRequest as Request;
 
 
 class RequestTest extends TestCase

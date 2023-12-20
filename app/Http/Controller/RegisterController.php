@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controller;
 
 use App\Model\Users;
-use FastVolt\Helper\{Session, UUID, Hash};
+use Fastvolt\Helper\{Session, UUID, Hash};
 
-class RegisterController extends \FastVolt\Core\Controller
+class RegisterController extends \Fastvolt\Core\Controller
 {
 
     /**
