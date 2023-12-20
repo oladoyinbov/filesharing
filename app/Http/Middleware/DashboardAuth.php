@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use Fastvolt\Helper\Session;
+use FastVolt\Helper\Session;
 
-class DashboardAuth extends \Fastvolt\Core\Middleware
+class DashboardAuth extends \FastVolt\Core\Middleware
 {
-    public function implement(\Fastvolt\Core\Http\HttpRequest $request)
+    public function implement(\FastVolt\Core\Http\HttpRequest $request)
     {
         if (! Session::has('fs_user')) {
 

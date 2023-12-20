@@ -6,9 +6,9 @@ namespace App\Http\Controller;
 
 use App\Enums\File;
 use App\Model\{Users, Files, Folders};
-use Fastvolt\Helper\{UUID, Session, FileSystem};
+use FastVolt\Helper\{UUID, Session, FileSystem};
 
-class FileUploadController extends \Fastvolt\Core\Controller
+class FileUploadController extends \FastVolt\Core\Controller
 {
     private FileSystem $f;
 

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controller;
 
 use App\Model\Files;
-use Fastvolt\Helper\Session;
+use FastVolt\Helper\Session;
 
-class DashboardController extends \Fastvolt\Core\Controller
+class DashboardController extends \FastVolt\Core\Controller
 {
 
     /**
@@ -23,7 +23,7 @@ class DashboardController extends \Fastvolt\Core\Controller
 
     public function stats(): string
     {
-        sleep(1);
+        sleep(2);
         return '
         <div class="container mb-4">
         <div class="row">

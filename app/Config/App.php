@@ -12,7 +12,7 @@ return [
     |--------------------------------------------------------------------------
     |
     */
-    "APP_NAME" => env('APP_NAME', 'Fastvolt'),
+    "APP_NAME" => env('APP_NAME', 'FastVolt'),
 
 
     /*
@@ -76,7 +76,7 @@ return [
     |--------------------------------------------------------------------------
     | Use Router Static Instance
     |--------------------------------------------------------------------------
-    |- This make use of "info.php" file in app root directory to get Fastvolt current version
+    |- This make use of "info.php" file in app root directory to get FastVolt current version
     |
     */
     "APP_VERSION" => APP_VERSION,

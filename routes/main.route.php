@@ -1,6 +1,6 @@
 <?php
 
-use Fastvolt\Router\Route;
+use FastVolt\Router\Route;
 
 /*
 |--------------------------------------------------------------------------

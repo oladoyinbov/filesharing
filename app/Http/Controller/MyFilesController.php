@@ -6,9 +6,9 @@ namespace App\Http\Controller;
 
 use App\Enums\File as FileEnum;
 use App\Model\{Users, Files};
-use Fastvolt\Helper\{Session, FileSystem as File};
+use FastVolt\Helper\{Session, FileSystem as File};
 
-class MyFilesController extends \Fastvolt\Core\Controller
+class MyFilesController extends \FastVolt\Core\Controller
 {
     /**
      * File Listing Function

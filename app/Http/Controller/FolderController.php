@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controller;
 
 use App\Model\{Folders, Files};
-use Fastvolt\Helper\{Session, CsrfToken, UUID};
+use FastVolt\Helper\{Session, CsrfToken, UUID};
 
-class FolderController extends \Fastvolt\Core\Controller
+class FolderController extends \FastVolt\Core\Controller
 {
     public function init()
     {

@@ -1,7 +1,7 @@
 <?php
 
-use Fastvolt\Router\Route as DevPages;
-use Fastvolt\Core\DevTool\DevMode;
+use FastVolt\Router\Route as DevPages;
+use FastVolt\Core\DevTool\DevMode;
 
 /*
 |--------------------------------------------------------------------------

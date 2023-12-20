@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
-use Fastvolt\Core\Http\HttpResponse as Response;
-use Fastvolt\Helper\Text;
+use FastVolt\Core\Http\HttpResponse as Response;
+use FastVolt\Helper\Text;
 
 
 class HtmlResponseTest extends TestCase{

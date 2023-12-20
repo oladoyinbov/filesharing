@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controller;
 
 use App\Model\Users;
-use Fastvolt\Helper\{Session, Hash};
+use FastVolt\Helper\{Session, Hash};
 
-class LoginController extends \Fastvolt\Core\Controller
+class LoginController extends \FastVolt\Core\Controller
 {
 
     /**

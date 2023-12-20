@@ -11,7 +11,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Fastvolt\\": "src/",
+            "FastVolt\\": "src/",
             "App\\": "app/"
         },
             "files": [

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Database\Tables;
 
-use Fastvolt\Core\Database\Mysql\Table;
-use Fastvolt\Core\Database\Mysql\Table\Schema;
+use FastVolt\Core\Database\Mysql\Table;
+use FastVolt\Core\Database\Mysql\Table\Schema;
 
 class users
 {
