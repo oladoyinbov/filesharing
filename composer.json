@@ -1,6 +1,6 @@
 {
-    "name": "oladoyinbov/filesharing",
-    "description": "A minimal online file sharing application",
+    "name": "fastvolt/framework",
+    "description": "A minimal php framework for developing web application",
     "license": "MIT",
     "keywords": [
         "framework",
@@ -24,8 +24,7 @@
     "require": {
         "php": "^8.1",
         "smarty/smarty": "^4.3",
-        "vlucas/phpdotenv": "^5.5",
-        "symfony/http-foundation": "^6.2"
+        "vlucas/phpdotenv": "^5.5"
     },
     "require-dev": {
         "phpunit/phpunit": "^10.2",
