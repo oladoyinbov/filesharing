@@ -126,6 +126,27 @@ class FolderController extends \FastVolt\Core\Controller
             }
 
             return implode("\n\r", $all_folders);
+        } else {
+
+            return ' <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4">
+            <div class="card border-dark">
+             <div class="card-body bg-warning text-white">
+               <div class="row">
+                 <i class="col-12 fad fa-plus fa-3x d-flex justify-content-center"></i>
+               </div>
+             </div>
+             <a href="#"  
+                data-bs-target="#createFolder" 
+                data-bs-toggle="modal"
+                hx-get="' . route('dash_create_folder', ['show' => 'form']) . '"
+                hx-trigger="click"
+                hx-target="#newfolderspace">
+               <div class="card-footer bg-light text-dark fw-bolder">
+                 <span class="text-center"> Create Folder <i class="fa fa-arrow-circle-right"></i></span>
+               </div>
+             </a>
+           </div>
+         </div>';
         }
     }
 
@@ -205,7 +226,9 @@ class FolderController extends \FastVolt\Core\Controller
                 return response()->redirect(route('dash_myfiles'));
             }
 
-            flash_message("Unable to Delete {$get_folder_name} Folder");
+            # delete folder only and proceed back to myfiles
+            $get_folder->delete();
+            flash_message("<i class='fa fa-folder'></i> Folder: {$get_folder_name} Deleted Successfully!");
             return response()->redirect(route('dash_myfiles'));
         }
 

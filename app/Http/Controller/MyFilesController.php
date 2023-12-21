@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controller;
 
-use App\Enums\File as FileEnum;
 use App\Model\{Users, Files};
 use FastVolt\Helper\{Session, FileSystem as File};
 
@@ -22,7 +21,6 @@ class MyFilesController extends \FastVolt\Core\Controller
             ->sortBy('DESC')
             ->orderBy('id')
             ->fetch_all_assoc();
-
 
         return $this->render('myfiles', [
             'files' => $all_files ?? []
@@ -141,6 +139,53 @@ class MyFilesController extends \FastVolt\Core\Controller
                ';
             }
         }
+    }
+
+
+    public function deleteFile()
+    {
+        if (request()->hasQuery('fxid') && is_uuid(request()->get('fxid'))) {
+
+            $file_id = request()->get('fxid');
+
+            if ($this->checkFileValidity($file_id)) {
+
+                if ($this->getFile($file_id)->delete()) {
+                    return '<div class=""></div>';
+                }
+            }
+        }
+    }
+
+
+    private function checkFileValidity(string $uuid): bool
+    {
+        if (is_uuid($uuid)) {
+        
+            $get_file = (new Files)
+                ->where([
+                    'user' => Session::get('fs_user'),
+                    'uuid' => $uuid
+                ]);
+
+            if ($get_file->num_rows() > 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    private function getFile(string $file_id): \FastVolt\Core\Model
+    {
+        $get_file = (new Files)
+                ->where([
+                    'user' => Session::get('fs_user'),
+                    'uuid' => $file_id
+                ]);
+
+        return $get_file;
     }
 
 

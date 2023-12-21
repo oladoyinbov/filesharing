@@ -10,9 +10,11 @@ use FastVolt\Router\Route;
 
 Route::get('/', 'HomeController@index', name: 'home');
 Route::get('/test', function() {
-   $_SESSION['hxx'] = 'hello';
-   echo $_SESSION['hxx'];
-   unset($_SESSION['hxx']);
+   \FastVolt\Helper\Session::store('fs', 'hello world x');
+   $test = \FastVolt\Helper\Session::get('fs');
+   $t2 = $test;
+   \FastVolt\Helper\Session::unset('fs');
+   print $t2;
 });
 
 # Login Auth

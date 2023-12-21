@@ -28,7 +28,7 @@
 {* Header Panel *}
 {block name='panel-2'}
 <div class="">
-    <a href="{route to='dash_upload_files'}" 
+    <a href="#" 
       class="btn btn-info" 
       data-bs-target="#createFolder" 
       data-bs-toggle="modal"
@@ -57,114 +57,18 @@
   <div class="float-left fs-1 fw-bolder">Folders <i class="fad fa-caret-right"></i></div>
 </div>
 
-
+{*  Folder Listing  *}
 <div class="container mb-5">
   <div class="row gap-2">
-
-    <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4" style="background-color:transparent;">
-      <div class="card border-dark">
-        <div class="card-body bg-warning text-white">
-          <div class="row">
-            <i class="col-12 fad fa-folder fa-3x d-flex justify-content-center"></i>
-          </div>
-        </div>
-        <a href="">
-          <div class="card-footer bg-light text-dark fw-bolder">
-            <span class="text-center">Documents <i class="fa fa-arrow-circle-right"></i></span>
-          </div>
-        </a>
-      </div>
-    </div>
-
-
-    <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4">
-      <div class="card border-dark">
-        <div class="card-body bg-warning text-white">
-          <div class="row">
-            <i class="col-12 fad fa-folder fa-3x d-flex justify-content-center"></i>
-          </div>
-        </div>
-        <a href="">
-          <div class="card-footer bg-light text-dark fw-bolder">
-            <span class="text-center">Music <i class="fa fa-arrow-circle-right"></i></span>
-          </div>
-        </a>
-      </div>
-    </div>
-
-
-      <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4">
-      <div class="card border-dark">
-        <div class="card-body bg-warning text-white">
-          <div class="row">
-            <i class="col-12 fad fa-folder fa-3x d-flex justify-content-center"></i>
-          </div>
-        </div>
-        <a href="">
-          <div class="card-footer bg-light text-dark fw-bolder">
-            <span class="text-center">Pictures <i class="fa fa-arrow-circle-right"></i></span>
-          </div>
-        </a>
-      </div>
-    </div>
-
-
-    <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4">
-      <div class="card border-dark">
-        <div class="card-body bg-warning text-white">
-          <div class="row">
-            <i class="col-12 fad fa-folder fa-3x d-flex justify-content-center"></i>
-          </div>
-        </div>
-        <a href="">
-          <div class="card-footer bg-light text-dark fw-bolder">
-            <span class="text-center">Videos <i class="fa fa-arrow-circle-right"></i></span>
-          </div>
-        </a>
-      </div>
-    </div>
-
-
-    <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4">
-      <div class="card border-dark">
-        <div class="card-body bg-warning text-white">
-          <div class="row">
-            <i class="col-12 fad fa-folder fa-3x d-flex justify-content-center"></i>
-          </div>
-        </div>
-        <a href="">
-          <div class="card-footer bg-light text-dark fw-bolder">
-            <span class="text-center">Pictures <i class="fa fa-arrow-circle-right"></i></span>
-          </div>
-        </a>
-      </div>
-    </div>
-
-
-    <div class="col-lg-2 col-md-3 col-sm-5 col-xs-4">
-      <div class="card border-dark">
-        <div class="card-body bg-warning text-white">
-          <div class="row">
-            <i class="col-12 fad fa-folder fa-3x d-flex justify-content-center"></i>
-          </div>
-        </div>
-        <a href="#">
-          <div class="card-footer bg-light text-dark fw-bolder">
-            <span class="text-center">Pictures <i class="fa fa-arrow-circle-right"></i></span>
-          </div>
-        </a>
-      </div>
-    </div>
-
     <div hx-get="{route to='dash_list_all_folders'}"
       hx-trigger="load"
       hx-swap="outerHTML"
     ></div>
-
   </div>
 </div>
 
 
+{*  Recent Files  *}
 {if count($files) > 0}
 <div class="col-10 mx-auto p-2 py-md-2 mt-0">
   <div class="float-left fs-1 fw-bolder">Recent Files <i class="fad fa-caret-right"></i></div>
