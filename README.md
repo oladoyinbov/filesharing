@@ -1,11 +1,11 @@
-# Foster Framework
+# Fastvolt Framework
 
-FastVolt is a simple, fast and scalable php web framework used for building web applications.
+Fastvolt is a simple, fast and scalable php web framework used for building web applications.
 this framework is best suited for entry-level php developers because of it simplicity.
 
 # Installation
 ```php
-composer require FastVolt/core
+composer require fastvolt/framework
 ```
 ✨ **Requirements**:
 - [ ] PHP 8.1
